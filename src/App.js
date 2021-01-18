@@ -1,11 +1,25 @@
-import React from 'react';
-import HomePage from '@/pages/HomePage';
-import { Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+const HomePage = React.lazy(() => import('@/pages/HomePage'));
+const AuthPage = React.lazy(() => import('@/pages/AuthPage'));
 
 const App = () => (
-  <>
-    <Route path="/" exact component={HomePage} />
-  </>
+  <Suspense fallback={<p>Loading...</p>}>
+    <Router>
+      <Switch>
+        <Route path="/" exact render={() => <HomePage />} />
+        <Route path="/auth" render={() => <AuthPage />} />
+        <Route
+          render={() => (
+            <div>
+              <h2>이 페이지는 존재하지 않습니다.</h2>
+            </div>
+          )}
+        />
+      </Switch>
+    </Router>
+  </Suspense>
 );
 
 export default App;

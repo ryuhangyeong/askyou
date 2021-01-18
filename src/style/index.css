@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 @font-face {
   font-family: 'NotoSansKR';
   font-style: normal;
@@ -41,9 +43,64 @@
   src: url('../font/Roboto-ThinItalic.ttf') format('ttf');
 }
 
-html,
-body {
-  font-family: 'NotoSansKR', sans-serif;
-  font-weight: 300;
+.blind {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
+html {
+  color: #333;
   font-size: 62.5%;
+}
+
+body,
+h1,
+h2,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+button,
+input,
+select,
+table,
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, 'NotoSansKR', 'Malgun Gothic',
+    '맑은 고딕', helvetica, 'Apple SD Gothic Neo', sans-serif;
+  font-weight: 300;
+}
+
+a,
+a:link a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+em {
+  font-style: normal;
+}
+
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
 }
