@@ -53,16 +53,20 @@
 }
 
 html {
+  background-color: #fbfbfb;
   color: #333;
   font-size: 62.5%;
 }
 
 body,
+div,
 h1,
 h2,
 p,
 ul,
-li {
+li,
+input,
+button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -76,7 +80,7 @@ table,
 textarea {
   font-family: -apple-system, BlinkMacSystemFont, 'NotoSansKR', 'Malgun Gothic',
     '맑은 고딕', helvetica, 'Apple SD Gothic Neo', sans-serif;
-  font-weight: 300;
+  font-weight: 100;
 }
 
 a,

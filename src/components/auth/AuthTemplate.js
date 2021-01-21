@@ -4,9 +4,9 @@ import styled from 'styled-components';
 const AuthTemplateBlock = styled.div`
   position: absolute;
   top: 6rem;
-  right: 0;
+  right: 1rem;
   bottom: 0;
-  left: 0;
+  left: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -7,15 +7,15 @@ const HeaderBlock = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  border-bottom: 1px solid #ccc;
-  width: 100%;
+  box-shadow: 0 1px 0 0 rgba(17, 17, 17, 0.09);
   background-color: #fff;
+  width: 100%;
 `;
 
 const Wrapper = styled(Responsive)`
   display: flex;
   align-items: center;
-  height: 6rem;
+  height: 7rem;
 `;
 
 const Logo = styled.h1`
@@ -32,7 +32,7 @@ const Right = styled.div`
     justify-content: center;
     align-items: center;
     width: 6rem;
-    height: 6rem;
+    height: 7rem;
     color: #333;
     font-size: 1.6rem;
 
@@ -55,7 +55,7 @@ const Header = () => {
             <Link to="/">askyou</Link>
           </Logo>
           <Right>
-            <Link to="/auth" className="login">
+            <Link to="/auth?type=sign_in" className="login">
               로그인
             </Link>
           </Right>

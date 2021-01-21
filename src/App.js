@@ -1,5 +1,10 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
 const HomePage = React.lazy(() => import('@/pages/HomePage'));
 const AuthPage = React.lazy(() => import('@/pages/AuthPage'));
@@ -10,13 +15,7 @@ const App = () => (
       <Switch>
         <Route path="/" exact render={() => <HomePage />} />
         <Route path="/auth" render={() => <AuthPage />} />
-        <Route
-          render={() => (
-            <div>
-              <h2>이 페이지는 존재하지 않습니다.</h2>
-            </div>
-          )}
-        />
+        <Redirect path="*" to="/" />
       </Switch>
     </Router>
   </Suspense>
