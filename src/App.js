@@ -5,12 +5,13 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import Loader from '@/components/common/Loader';
 
 const HomePage = React.lazy(() => import('@/pages/HomePage'));
 const AuthPage = React.lazy(() => import('@/pages/AuthPage'));
 
 const App = () => (
-  <Suspense fallback={<p>Loading...</p>}>
+  <Suspense fallback={<Loader />}>
     <Router>
       <Switch>
         <Route path="/" exact render={() => <HomePage />} />

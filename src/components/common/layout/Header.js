@@ -19,9 +19,11 @@ const Wrapper = styled(Responsive)`
 `;
 
 const Logo = styled.h1`
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
-  font-size: 2rem;
+  a {
+    font-family: 'Kalam-Regular', sans-serif;
+    font-weight: 400;
+    font-size: 2rem;
+  }
 `;
 
 const Right = styled.div`
@@ -43,7 +45,7 @@ const Right = styled.div`
 `;
 
 const Spacer = styled.div`
-  height: 6rem;
+  height: 7rem;
 `;
 
 const Header = () => {

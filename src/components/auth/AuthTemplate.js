@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const AuthTemplateBlock = styled.div`
   position: absolute;
-  top: 6rem;
+  top: 7rem;
   right: 1rem;
   bottom: 0;
   left: 1rem;

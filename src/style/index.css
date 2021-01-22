@@ -40,7 +40,14 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
-  src: url('../font/Roboto-ThinItalic.ttf') format('ttf');
+  src: url('../font/Roboto-ThinItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Kalam-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../font/Kalam-Regular.ttf') format('truetype');
 }
 
 .blind {
