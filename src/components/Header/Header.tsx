@@ -1,9 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import Responsive from './Responsive';
 import { Link } from 'react-router-dom';
+import Responsive from '../Responsive';
 
-const HeaderBlock = styled.header`
+export default () => {
+  return (
+    <>
+      <Layout>
+        <Wrapper>
+          <Logo>
+            <Link to="/">askyou</Link>
+          </Logo>
+          <Right>
+            <Link to="/auth" className="login">
+              로그인
+            </Link>
+          </Right>
+        </Wrapper>
+      </Layout>
+      <Spacer />
+    </>
+  );
+};
+
+const Layout = styled.header`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +48,6 @@ const Logo = styled.h1`
 
 const Right = styled.div`
   margin-left: auto;
-
   .login {
     display: flex;
     justify-content: center;
@@ -37,7 +56,6 @@ const Right = styled.div`
     height: 7rem;
     color: #333;
     font-size: 1.6rem;
-
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
@@ -47,25 +65,3 @@ const Right = styled.div`
 const Spacer = styled.div`
   height: 7rem;
 `;
-
-const Header = () => {
-  return (
-    <>
-      <HeaderBlock>
-        <Wrapper>
-          <Logo>
-            <Link to="/">askyou</Link>
-          </Logo>
-          <Right>
-            <Link to="/auth?type=sign_in" className="login">
-              로그인
-            </Link>
-          </Right>
-        </Wrapper>
-      </HeaderBlock>
-      <Spacer />
-    </>
-  );
-};
-
-export default Header;

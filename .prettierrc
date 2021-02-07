@@ -1,6 +1,9 @@
 {
-  "singleQuote": true,
+  "endOfLine": "auto",
+  "parser": "typescript",
+  "printWidth": 80,
   "semi": true,
-  "useTabs": false,
-  "tabWidth": 2
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false
 }

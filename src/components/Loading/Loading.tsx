@@ -1,7 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LoaderTemplate = styled.div`
+export default () => {
+  return (
+    <Layout>
+      <Wrapper>
+        <span />
+        <span />
+        <span />
+        <span />
+      </Wrapper>
+    </Layout>
+  );
+};
+
+const Layout = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -12,12 +25,11 @@ const LoaderTemplate = styled.div`
   align-items: center;
 `;
 
-const LoaderBlock = styled.div`
+const Wrapper = styled.div`
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
-
   span {
     position: absolute;
     top: 33px;
@@ -26,27 +38,22 @@ const LoaderBlock = styled.div`
     width: 13px;
     height: 13px;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
-
     &:nth-child(1) {
       left: 8px;
       animation: loader1 0.6s infinite;
     }
-
     &:nth-child(2) {
       left: 8px;
       animation: loader2 0.6s infinite;
     }
-
     &:nth-child(3) {
       left: 32px;
       animation: loader2 0.6s infinite;
     }
-
     &:nth-child(4) {
       left: 56px;
       animation: loader3 0.6s infinite;
     }
-
     @keyframes loader1 {
       0% {
         transform: scale(0);
@@ -55,7 +62,6 @@ const LoaderBlock = styled.div`
         transform: scale(1);
       }
     }
-
     @keyframes loader2 {
       0% {
         transform: translate(0, 0);
@@ -64,7 +70,6 @@ const LoaderBlock = styled.div`
         transform: translate(24px, 0);
       }
     }
-
     @keyframes loader3 {
       0% {
         transform: scale(1);
@@ -75,18 +80,3 @@ const LoaderBlock = styled.div`
     }
   }
 `;
-
-const Loader = () => {
-  return (
-    <LoaderTemplate>
-      <LoaderBlock>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </LoaderBlock>
-    </LoaderTemplate>
-  );
-};
-
-export default Loader;
