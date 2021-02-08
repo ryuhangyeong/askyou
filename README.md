@@ -8,6 +8,8 @@
 - Reactjs
 - React Router
 - React-hook-form
+- react-query
+- axios
 - Yup
 - Typescript
 - Styled-Components
