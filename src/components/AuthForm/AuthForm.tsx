@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { GrFacebook, GrGoogle, GrMail } from 'react-icons/gr';
-import { RiKakaoTalkFill } from 'react-icons/ri';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { GrFacebook, GrGoogle, GrMail } from 'react-icons/gr';
+import { RiKakaoTalkFill } from 'react-icons/ri';
+import styled from 'styled-components';
 import firebase from 'firebase';
 import AuthLayout from './AuthLayout';
 import { signUpApi, signInApi, oauthApi } from '../../api/auth';
+import KakaoLogin from '../../functions/KakaoLogin';
 
 interface Inputs {
   email: string;
@@ -36,29 +38,15 @@ export default () => {
     message: '',
   });
 
+  const history = useHistory();
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const onOauthKakao = async (accessToken: string) => {
-    // const data = await fetch(
-    //   'http://localhost:5001/askyou-41efc/us-central1/OauthKakao',
-    //   {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       data: {
-    //         accessToken,
-    //       },
-    //     }),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   }
-    // );
-
-    const data = await firebase.functions().httpsCallable('OauthKakao')({
-      accessToken,
-    });
-
-    // const res = await data.json();
-
-    console.log(data);
+    const token = await KakaoLogin(accessToken);
+    await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
   };
 
   const onKakaoLogin = () => {
@@ -67,26 +55,19 @@ export default () => {
         const { access_token: accessToken } = data;
         (async () => {
           await onOauthKakao(accessToken);
+          history.push('/');
         })();
       },
       fail() {},
     });
   };
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const onOauth = async (type: string) => {
     try {
-      const data = await oauthApi(type);
+      await oauthApi(type);
+      history.push('/');
     } catch ({ code, credential: { providerId } }) {
-      console.log(code);
       setError({ message: `${code}-${providerId}` });
-    } finally {
-      setTimeout(() => {
-        if (!error.message) setError({ message: '' });
-      }, 2000);
     }
   };
 
@@ -94,15 +75,13 @@ export default () => {
     try {
       if (authType) await signInApi(email, password);
       else await signUpApi(email, password);
+      history.push('/');
     } catch (e) {
       setError({ message: e.code });
-    } finally {
-      setTimeout(() => {
-        if (!error.message) setError({ message: '' });
-      }, 2000);
     }
   };
 
+  const onChange = () => setError({ message: '' });
   const type = authType ? '로그인' : '회원가입';
   const reverseType = !authType ? '로그인' : '회원가입';
 
@@ -142,7 +121,6 @@ export default () => {
           )}
         </button>
         <span className="or">또는</span>
-
         {!visible ? (
           <button
             type="button"
@@ -160,6 +138,7 @@ export default () => {
                 name="email"
                 placeholder="이메일을 입력하세요."
                 ref={register}
+                onChange={onChange}
               />
               {errors?.email?.type === 'required' && (
                 <ErrorMessage className="required">
@@ -184,6 +163,7 @@ export default () => {
                 autoComplete="new-password"
                 placeholder="비밀번호를 입력하세요."
                 ref={register}
+                onChange={onChange}
               />
               {errors?.password?.type === 'min' && (
                 <ErrorMessage className="required password">
