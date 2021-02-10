@@ -24,20 +24,33 @@ admin.initializeApp({
   databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
 
-const createUser = async (userId: string, displayName: string) => {
+const createCustomToken = async (uid: string | undefined) => {
+  if (uid) {
+    const data = await admin.auth().createCustomToken(uid, {
+      provider: 'KAKAO',
+    });
+    return data;
+  }
+  return null;
+};
+
+const createUser = async (uid: string, displayName: string) => {
+  let data;
+
   const updateParams = {
     provider: 'KAKAO',
     displayName,
-    uid: userId,
+    uid,
   };
 
   try {
-    await admin.auth().getUser(userId);
+    data = await admin.auth().getUser(uid);
   } catch (error) {
     if (error.code === 'auth/user-not-found') {
-      await admin.auth().createUser(updateParams);
+      data = await admin.auth().createUser(updateParams);
     }
   }
+  return data;
 };
 
 const getUserProfile = async (accessToken: string) => {
@@ -53,20 +66,21 @@ const getUserProfile = async (accessToken: string) => {
   return data;
 };
 
-export const OauthKakao = functions.https.onRequest(async (req, res) => {
+export const KakaoLogin = functions.https.onRequest(async (req, res) => {
   if (req.method === 'POST') {
     const { accessToken } = req.body;
 
     try {
       const body = await getUserProfile(accessToken);
       const { id } = body.data;
-      const userId = `kakao:${id}`;
+      const uid = `kakao:${id}`;
       const displayName = body.data?.properties?.nickname;
 
-      await createUser(userId, displayName);
+      const user = await createUser(uid, displayName);
+      const firebaseToken = await createCustomToken(user?.uid);
 
       return crossOrigin(req, res, () => {
-        res.json({ hello: 'world' });
+        res.json({ accessToken, firebaseToken });
       });
     } catch (error) {
       return crossOrigin(req, res, () => {
