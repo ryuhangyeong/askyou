@@ -8,8 +8,4 @@ typings/
 # Node.js dependency directory
 node_modules/
 
-# firebase
-ui-debug.log
-firebase-debug.log
-
 .env
