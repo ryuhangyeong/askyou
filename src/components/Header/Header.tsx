@@ -52,6 +52,10 @@ const Logo = styled.h1`
     font-family: 'IstokWeb', sans-serif;
     font-weight: 400;
     font-size: 2rem;
+
+    @media (max-width: 768px) {
+      font-weight: 700;
+    }
   }
 `;
 
@@ -62,6 +66,7 @@ const Right = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 1rem;
     width: 6rem;
     height: 7rem;
     color: #333;
