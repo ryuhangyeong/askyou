@@ -1,23 +1,22 @@
-const AUTH_LOADING = 'auth/AUTH_LOADING' as const;
-const AUTH_DATA = 'auth/AUTH_DATA' as const;
+import { deprecated, ActionType, createReducer } from 'typesafe-actions';
 
-export const authLoading = (loading: boolean) => ({
-  type: AUTH_LOADING,
-  payload: loading,
-});
+const { createStandardAction } = deprecated;
 
-type userType = {
+const AUTH_LOADING = 'auth/AUTH_LOADING';
+const AUTH_FETCH = 'auth/AUTH_FETCH';
+
+export const authLoading = createStandardAction(AUTH_LOADING)<boolean>();
+
+export type userType = {
   uid: string;
   displayName?: string | null;
   email?: string | null;
-};
+} | null;
 
-export const authData = (user: userType | null) => ({
-  type: AUTH_DATA,
-  payload: user,
-});
+export const authFetch = createStandardAction(AUTH_FETCH)<userType>();
 
-type AuthAction = ReturnType<typeof authLoading> | ReturnType<typeof authData>;
+const actions = { authLoading, authFetch };
+type AuthAction = ActionType<typeof actions>;
 
 type AuthState = {
   loading: boolean;
@@ -25,25 +24,19 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  loading: true,
+  loading: false,
   user: null,
 };
 
-function auth(state: AuthState = initialState, action: AuthAction): AuthState {
-  switch (action.type) {
-    case AUTH_LOADING:
-      return {
-        ...state,
-        loading: action.payload,
-      };
-    case AUTH_DATA:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+const auth = createReducer<AuthState, AuthAction>(initialState, {
+  [AUTH_LOADING]: (state, action) => ({
+    ...state,
+    loading: action.payload,
+  }),
+  [AUTH_FETCH]: (state, action) => ({
+    ...state,
+    user: action.payload,
+  }),
+});
 
 export default auth;

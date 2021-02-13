@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './modules';
 
 import App from './App';
@@ -14,7 +14,12 @@ import reportWebVitals from './reportWebVitals';
 
 const queryClient = new QueryClient();
 
-const store = createStore(rootReducer, composeWithDevTools());
+const enhancer =
+  process.env.NODE_ENV === 'production'
+    ? compose(applyMiddleware())
+    : composeWithDevTools(applyMiddleware());
+
+const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -36,6 +36,13 @@
     url(../font/NotoSansKR-Bold.otf) format('truetype');
 }
 
+@font-face {
+  font-family: 'IstokWeb';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/IstokWeb-Regular.ttf) format('truetype');
+}
+
 .blind {
   position: absolute;
   clip: rect(0 0 0 0);

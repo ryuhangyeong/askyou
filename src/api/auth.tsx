@@ -14,9 +14,11 @@ export const signInApi = async (email: string, password: string) => {
   return data;
 };
 
-/*
- * @todo 타입스크립트 타입 오류 해결 후 간소화
- */
+export const logout = async () => {
+  const data = await firebase.auth().signOut();
+  return data;
+};
+
 export const oauthApi = async (type: string) => {
   let data;
 

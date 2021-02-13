@@ -2,19 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Responsive from '../Responsive';
+import useAuth from '../../hooks/useAuth';
+import { logout } from '../../api/auth';
 
 export default () => {
+  const { user } = useAuth();
   return (
     <>
       <Layout>
         <Wrapper>
           <Logo>
-            <Link to="/">askyou</Link>
+            <Link to="/">Askyou</Link>
           </Logo>
           <Right>
-            <Link to="/auth" className="login">
-              로그인
-            </Link>
+            {user ? (
+              <span className="logout" onClick={() => logout()}>
+                로그아웃
+              </span>
+            ) : (
+              <Link to="/auth" className="login">
+                로그인
+              </Link>
+            )}
           </Right>
         </Wrapper>
       </Layout>
@@ -40,7 +49,7 @@ const Wrapper = styled(Responsive)`
 
 const Logo = styled.h1`
   a {
-    font-family: 'Kalam-Regular', sans-serif;
+    font-family: 'IstokWeb', sans-serif;
     font-weight: 400;
     font-size: 2rem;
   }
@@ -48,7 +57,8 @@ const Logo = styled.h1`
 
 const Right = styled.div`
   margin-left: auto;
-  .login {
+  .login,
+  .logout {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,6 +66,7 @@ const Right = styled.div`
     height: 7rem;
     color: #333;
     font-size: 1.6rem;
+    cursor: pointer;
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }

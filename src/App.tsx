@@ -1,5 +1,4 @@
 import React, { useEffect, Suspense } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,32 +8,29 @@ import {
 import './firebase';
 import firebase from 'firebase';
 import Spinner from './components/Spinner';
-import { RootState } from './modules';
-import { authLoading, authData } from './modules/auth';
+import useAuth from './hooks/useAuth';
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'));
 const AuthPage = React.lazy(() => import('./pages/AuthPage'));
 
 const App = () => {
-  const { user, loading } = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
+  const { user, loading, onAuthLoading, onAuthFetch } = useAuth();
 
   useEffect(() => {
+    onAuthLoading(true);
     firebase.auth().onAuthStateChanged((data) => {
-      dispatch(authLoading(false));
-      if (!data) dispatch(authData(null));
+      onAuthLoading(false);
+      if (!data) onAuthFetch(data);
       else {
         const { displayName, email, uid } = data;
-        dispatch(
-          authData({
-            displayName,
-            email,
-            uid,
-          })
-        );
+        onAuthFetch({
+          displayName,
+          email,
+          uid,
+        });
       }
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <Suspense fallback={<Spinner />}>
