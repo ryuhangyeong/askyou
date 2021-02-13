@@ -1,5 +1,4 @@
 import firebase from 'firebase';
-import { string } from 'yup/lib/locale';
 
 export const signUpApi = async (email: string, password: string) => {
   const data = await firebase

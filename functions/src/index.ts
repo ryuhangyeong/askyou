@@ -36,13 +36,11 @@ const createCustomToken = async (uid: string | undefined) => {
 
 const createUser = async (uid: string, displayName: string) => {
   let data;
-
   const updateParams = {
     provider: 'KAKAO',
     displayName,
     uid,
   };
-
   try {
     data = await admin.auth().getUser(uid);
   } catch (error) {
@@ -55,32 +53,30 @@ const createUser = async (uid: string, displayName: string) => {
 
 const getUserProfile = async (accessToken: string) => {
   const url: string = 'https://kapi.kakao.com/v2/user/me?secure_resource=true';
-
   const data = await axios({
     url,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-
   return data;
 };
 
-export const KakaoLogin = functions.https.onRequest(async (req, res) => {
+export const kakaoLogin = functions.https.onRequest(async (req, res) => {
   if (req.method === 'POST') {
-    const { accessToken } = req.body;
-
+    const { accessToken } = req.body.data;
     try {
       const body = await getUserProfile(accessToken);
       const { id } = body.data;
       const uid = `kakao:${id}`;
       const displayName = body.data?.properties?.nickname;
-
       const user = await createUser(uid, displayName);
       const firebaseToken = await createCustomToken(user?.uid);
 
       return crossOrigin(req, res, () => {
-        res.json({ accessToken, firebaseToken });
+        res.json({
+          data: { accessToken, firebaseToken },
+        });
       });
     } catch (error) {
       return crossOrigin(req, res, () => {
@@ -88,7 +84,6 @@ export const KakaoLogin = functions.https.onRequest(async (req, res) => {
       });
     }
   }
-
   return crossOrigin(req, res, () => {
     res.json({});
   });

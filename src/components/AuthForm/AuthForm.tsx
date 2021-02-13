@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import firebase from 'firebase';
 import AuthLayout from './AuthLayout';
 import { signUpApi, signInApi, oauthApi } from '../../api/auth';
-import KakaoLogin from '../../functions/KakaoLogin';
+import kakaoLogin from '../../functions/kakaoLogin';
 
 interface Inputs {
   email: string;
@@ -45,7 +45,7 @@ export default () => {
   });
 
   const onOauthKakao = async (accessToken: string) => {
-    const token = await KakaoLogin(accessToken);
+    const token = await kakaoLogin(accessToken);
     await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
   };
 
@@ -82,6 +82,7 @@ export default () => {
   };
 
   const onChange = () => setError({ message: '' });
+
   const type = authType ? '로그인' : '회원가입';
   const reverseType = !authType ? '로그인' : '회원가입';
 
