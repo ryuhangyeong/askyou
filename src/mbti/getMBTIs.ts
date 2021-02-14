@@ -1,10 +1,10 @@
-type MBTIType = {
+export type MBTI = {
   id: number;
   type: string;
   alias: string;
 };
 
-export const getAnalysisType: MBTIType[] = [
+export const getAnalysisType: MBTI[] = [
   {
     id: 1,
     type: 'INTJ',
@@ -27,7 +27,7 @@ export const getAnalysisType: MBTIType[] = [
   },
 ];
 
-export const getDiplomacyType: MBTIType[] = [
+export const getDiplomacyType: MBTI[] = [
   {
     id: 5,
     type: 'INFJ',
@@ -50,7 +50,7 @@ export const getDiplomacyType: MBTIType[] = [
   },
 ];
 
-export const getManagerType: MBTIType[] = [
+export const getManagerType: MBTI[] = [
   {
     id: 9,
     type: 'ISTJ',
@@ -73,7 +73,7 @@ export const getManagerType: MBTIType[] = [
   },
 ];
 
-export const getExplorerType: MBTIType[] = [
+export const getExplorerType: MBTI[] = [
   {
     id: 13,
     type: 'ISTP',
@@ -96,7 +96,7 @@ export const getExplorerType: MBTIType[] = [
   },
 ];
 
-export const getMBTIs: MBTIType[] = [
+export const getMBTIs: MBTI[] = [
   ...getAnalysisType,
   ...getDiplomacyType,
   ...getManagerType,

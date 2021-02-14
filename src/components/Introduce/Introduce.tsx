@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
+import MbtiItem from './MbtiItem';
 import { getMBTIs } from '../../mbti/getMBTIs';
 
 export default () => {
@@ -44,9 +45,7 @@ export default () => {
         <h2 className="slide">
           <ul ref={ulElement}>
             {mbtis.map((mbti) => (
-              <li key={mbti.id}>
-                <span>{mbti.type}</span>
-              </li>
+              <MbtiItem mbti={mbti} key={mbti.id} />
             ))}
           </ul>
         </h2>
