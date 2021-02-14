@@ -10,6 +10,7 @@ import firebase from 'firebase';
 import AuthLayout from './AuthLayout';
 import { signUpApi, signInApi, oauthApi } from '../../api/auth';
 import kakaoLogin from '../../functions/kakaoLogin';
+import useAuth from '../../hooks/useAuth';
 
 interface Inputs {
   email: string;
@@ -31,7 +32,7 @@ export default () => {
   if (!window.Kakao.isInitialized()) {
     window.Kakao.init(process.env.REACT_APP_KAKAO_LOGIN);
   }
-
+  const { onAuthLoading } = useAuth();
   const [authType, setAuthType] = useState(false);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState({
@@ -45,8 +46,10 @@ export default () => {
   });
 
   const onOauthKakao = async (accessToken: string) => {
+    onAuthLoading(true);
     const token = await kakaoLogin(accessToken);
     await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
+    onAuthLoading(false);
   };
 
   const onKakaoLogin = () => {

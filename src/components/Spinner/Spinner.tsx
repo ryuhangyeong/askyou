@@ -23,6 +23,7 @@ const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
 `;
 
 const Wrapper = styled.div`

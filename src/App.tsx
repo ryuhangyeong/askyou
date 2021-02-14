@@ -33,28 +33,31 @@ const App = () => {
   }, []);
 
   return (
-    <Suspense fallback={<Spinner />}>
-      <Router>
-        <Switch>
-          <Route path="/" exact render={() => <IndexPage />} />
-          <Route
-            path="/auth"
-            render={() =>
-              user ? (
-                <Redirect
-                  to={{
-                    pathname: '/',
-                  }}
-                />
-              ) : (
-                !loading && <AuthPage />
-              )
-            }
-          />
-          <Redirect path="*" to="/" />
-        </Switch>
-      </Router>
-    </Suspense>
+    <>
+      <Suspense fallback={<Spinner />}>
+        <Router>
+          <Switch>
+            <Route path="/" exact render={() => <IndexPage />} />
+            <Route
+              path="/auth"
+              render={() =>
+                user ? (
+                  <Redirect
+                    to={{
+                      pathname: '/',
+                    }}
+                  />
+                ) : (
+                  !loading && <AuthPage />
+                )
+              }
+            />
+            <Redirect path="*" to="/" />
+          </Switch>
+        </Router>
+      </Suspense>
+      {loading && <Spinner />}
+    </>
   );
 };
 
