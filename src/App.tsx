@@ -6,7 +6,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import './firebase';
-import firebase from 'firebase';
 import Spinner from './components/Spinner';
 import useAuth from './hooks/useAuth';
 
@@ -14,24 +13,11 @@ const IndexPage = React.lazy(() => import('./pages/IndexPage'));
 const AuthPage = React.lazy(() => import('./pages/AuthPage'));
 
 const App = () => {
-  const { user, loading, onAuthLoading, onAuthFetch } = useAuth();
+  const { user, loading, onAuthStateChanged } = useAuth();
 
   useEffect(() => {
-    onAuthLoading(true);
-    firebase.auth().onAuthStateChanged((data) => {
-      onAuthLoading(false);
-      if (!data) onAuthFetch(data);
-      else {
-        const { displayName, email, uid } = data;
-        onAuthFetch({
-          displayName,
-          email,
-          uid,
-        });
-      }
-    });
+    onAuthStateChanged();
   }, []);
-
   return (
     <>
       <Suspense fallback={<Spinner />}>

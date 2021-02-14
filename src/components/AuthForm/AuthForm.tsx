@@ -32,7 +32,8 @@ export default () => {
   if (!window.Kakao.isInitialized()) {
     window.Kakao.init(process.env.REACT_APP_KAKAO_LOGIN);
   }
-  const { onAuthLoading } = useAuth();
+
+  const { onAuthLoadingPromise } = useAuth();
   const [authType, setAuthType] = useState(false);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState({
@@ -46,10 +47,8 @@ export default () => {
   });
 
   const onOauthKakao = async (accessToken: string) => {
-    onAuthLoading(true);
     const token = await kakaoLogin(accessToken);
     await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
-    onAuthLoading(false);
   };
 
   const onKakaoLogin = () => {
@@ -57,8 +56,10 @@ export default () => {
       success(data: any) {
         const { access_token: accessToken } = data;
         (async () => {
-          await onOauthKakao(accessToken);
-          history.push('/');
+          onAuthLoadingPromise(async () => {
+            await onOauthKakao(accessToken);
+            history.push('/');
+          });
         })();
       },
       fail() {},
@@ -67,8 +68,10 @@ export default () => {
 
   const onOauth = async (type: string) => {
     try {
-      await oauthApi(type);
-      history.push('/');
+      onAuthLoadingPromise(async () => {
+        await oauthApi(type);
+        history.push('/');
+      });
     } catch ({ code, credential: { providerId } }) {
       setError({ message: `${code}-${providerId}` });
     }
