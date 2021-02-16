@@ -5,7 +5,7 @@ import MbtiItem from './MbtiItem';
 import { getMBTIs } from '../../mbti/getMBTIs';
 
 export default () => {
-  const SIZE = 65;
+  const SIZE = 6.5;
   const DURATION = 2000;
   const [idx, setIdx] = useState(1);
   const ulElement = useRef<HTMLUListElement>(null);
@@ -24,7 +24,7 @@ export default () => {
       if (current !== null) {
         setIdx(idx + 1);
         current.style.transition = `all ${DURATION / 10000}s ease-in-out`;
-        current.style.transform = `translateY(-${SIZE * idx}px)`;
+        current.style.transform = `translateY(-${SIZE * idx}rem)`;
         if (idx >= len - 1) {
           setTimeout(() => {
             current.style.transition = 'none';
@@ -34,11 +34,9 @@ export default () => {
         }
       }
     }, DURATION);
-
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, [idx, len]);
+
   return (
     <Wrapper>
       <Inner>
@@ -62,7 +60,7 @@ const Wrapper = styled.div`
   justify-content: center;
   overflow: hidden;
   width: 100%;
-  height: 500px;
+  height: 50rem;
   background-color: #e9ecef;
   color: #000;
   font-weight: 100;
@@ -81,9 +79,9 @@ const Inner = styled(Responsive)`
       position: relative;
       overflow: hidden;
       display: inline-block;
-      width: 130px;
-      height: 65px;
-      line-height: 65px;
+      width: 13rem;
+      height: 6.5rem;
+      line-height: 6.5rem;
 
       ul {
         position: absolute;
@@ -92,7 +90,7 @@ const Inner = styled(Responsive)`
         transition: all 0.2s ease-in-out;
         li {
           text-align: center;
-          height: 65px;
+          height: 6.5rem;
 
           span {
             display: block;
@@ -107,7 +105,7 @@ const Inner = styled(Responsive)`
   }
   span {
     vertical-align: top;
-    line-height: 65px;
+    line-height: 6.5rem;
     font-size: 5rem;
     font-weight: 300;
   }

@@ -323,7 +323,7 @@ const ErrorMessage = styled.span`
   right: 10px;
   transform: translateY(-50%);
   border-radius: 3px;
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   background-color: #1d1d1d;
   color: #fff;
 
