@@ -11,6 +11,7 @@ import useAuth from './hooks/useAuth';
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'));
 const AuthPage = React.lazy(() => import('./pages/AuthPage'));
+const MbtiPage = React.lazy(() => import('./pages/MbtiPage'));
 
 const App = () => {
   const { user, loading, onAuthStateChanged } = useAuth();
@@ -38,6 +39,7 @@ const App = () => {
                 )
               }
             />
+            <Route path="/mbti" render={() => <MbtiPage />} />
             <Redirect path="*" to="/" />
           </Switch>
         </Router>
