@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
+import Share from './Share';
 import Survey from './Survey';
 
 export default () => {
-  const [mode, setMode] = useState(false);
-  const onClick = () => setMode(true);
   return (
-    <Layout>
-      <Wrapper>
-        <Title>
-          <h1>당신을 표현하는</h1>
-          <h1>단어로 알아보는</h1>
-          <h1>MBTI</h1>
-        </Title>
-      </Wrapper>
-      <Wrapper className="center">
-        {mode ? (
+    <>
+      <Share />
+      <Layout>
+        <Wrapper>
+          <Title>
+            <h1>당신을 표현하는</h1>
+            <h1>단어로 알아보는</h1>
+            <h1>MBTI</h1>
+          </Title>
+        </Wrapper>
+        <Wrapper className="center">
           <Survey />
-        ) : (
-          <Button type="submit" onClick={onClick}>
-            알아가기
-          </Button>
-        )}
-      </Wrapper>
-    </Layout>
+        </Wrapper>
+      </Layout>
+    </>
   );
 };
 
@@ -83,6 +79,10 @@ const Title = styled.div`
       top: -3rem;
       display: block;
     }
+
+    @media (max-width: 330px) {
+      display: none;
+    }
   }
 
   &::before {
@@ -91,20 +91,5 @@ const Title = styled.div`
 
   &::after {
     right: -2.5rem;
-  }
-`;
-
-const Button = styled.button`
-  padding: 2rem 6rem;
-  background-color: #fff;
-  border: 1px solid #f33;
-  color: #f33;
-  font-size: 2rem;
-  cursor: pointer;
-
-  &:active,
-  &:hover {
-    background-color: #f33;
-    color: #fff;
   }
 `;
