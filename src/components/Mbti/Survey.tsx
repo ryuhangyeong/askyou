@@ -5,7 +5,7 @@ export default () => {
   return (
     <Layout>
       <Wrapper>
-        <span className="word">사랑.</span>
+        <span className="word">결혼.</span>
       </Wrapper>
       <Wrapper>
         <span className="word">연애.</span>

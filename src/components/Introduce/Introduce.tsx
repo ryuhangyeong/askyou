@@ -40,6 +40,7 @@ export default () => {
   return (
     <Wrapper>
       <Inner>
+        <h2>여러분이</h2>
         <h2 className="slide">
           <ul ref={ulElement}>
             {mbtis.map((mbti) => (
