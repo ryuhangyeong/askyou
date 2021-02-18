@@ -15,12 +15,15 @@ export default () => {
             <Link to="/">Askyou</Link>
           </Logo>
           <Right>
+            <Link to="/mbti" className="item">
+              검사하기
+            </Link>
             {user ? (
-              <span className="logout" onClick={() => logout()}>
+              <span className="item" onClick={() => logout()}>
                 로그아웃
               </span>
             ) : (
-              <Link to="/auth" className="login">
+              <Link to="/auth" className="item">
                 로그인
               </Link>
             )}
@@ -60,9 +63,10 @@ const Logo = styled.h1`
 `;
 
 const Right = styled.div`
+  display: flex;
   margin-left: auto;
-  .login,
-  .logout {
+
+  .item {
     display: flex;
     justify-content: center;
     align-items: center;
