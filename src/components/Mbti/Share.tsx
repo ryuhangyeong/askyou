@@ -2,20 +2,26 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { FaShareAlt } from 'react-icons/fa';
 import { FiPaperclip } from 'react-icons/fi';
+import { GrFacebook } from 'react-icons/gr';
+import { RiKakaoTalkFill } from 'react-icons/ri';
+import clipboard from '../../utils/clipboard';
 
 export default () => {
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
   return (
     <Layout>
-      <Wrapper onClick={onClick} visible={visible}>
-        <span>
+      <Wrapper visible={visible}>
+        <span onClick={onClick}>
           <FaShareAlt />
         </span>
         <span>
-          <FiPaperclip />
+          <GrFacebook />
         </span>
         <span>
+          <RiKakaoTalkFill />
+        </span>
+        <span onClick={() => clipboard('링크 복사 테스트')}>
           <FiPaperclip />
         </span>
       </Wrapper>
@@ -27,6 +33,11 @@ const Layout = styled.div`
   position: absolute;
   top: 3rem;
   left: 3rem;
+
+  @media (max-width: 768px) {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
 `;
 
 interface WrapperProps {
@@ -41,10 +52,23 @@ const Wrapper = styled.div<WrapperProps>`
     css`
       span:nth-child(2) {
         transform: translateX(6rem);
+        @media (max-width: 768px) {
+          transform: translateY(6rem);
+        }
       }
 
       span:nth-child(3) {
         transform: translateX(12rem);
+        @media (max-width: 768px) {
+          transform: translateY(12rem);
+        }
+      }
+
+      span:nth-child(4) {
+        transform: translateX(18rem);
+        @media (max-width: 768px) {
+          transform: translateY(18rem);
+        }
       }
     `}
 
