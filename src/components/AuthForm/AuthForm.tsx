@@ -108,7 +108,7 @@ export default () => {
           <em>페이스북으로 {type}</em>
           {error?.message ===
             'auth/account-exists-with-different-credential-facebook.com' && (
-            <ErrorMessage className="already">
+            <ErrorMessage className="email__already">
               이미 존재하는 이메일
             </ErrorMessage>
           )}
@@ -122,7 +122,7 @@ export default () => {
           <em>구글로 {type}</em>
           {error?.message ===
             'auth/account-exists-with-different-credential' && (
-            <ErrorMessage className="already">
+            <ErrorMessage className="email__already">
               이미 존재하는 이메일
             </ErrorMessage>
           )}
@@ -148,18 +148,23 @@ export default () => {
                 onChange={onChange}
               />
               {errors?.email?.type === 'required' && (
-                <ErrorMessage className="required">
+                <ErrorMessage className="email__required">
                   이메일은 필수입력
                 </ErrorMessage>
               )}
               {errors?.email?.type === 'email' && (
-                <ErrorMessage className="email">
+                <ErrorMessage className="email__format--not">
                   올바르지 않은 이메일 형식
                 </ErrorMessage>
               )}
               {error?.message === 'auth/email-already-in-use' && (
-                <ErrorMessage className="already">
+                <ErrorMessage className="email__already">
                   이미 존재하는 이메일
+                </ErrorMessage>
+              )}
+              {error?.message === 'auth/user-not-found' && (
+                <ErrorMessage className="email__already--not">
+                  존재하지 않는 이메일
                 </ErrorMessage>
               )}
             </InputGroup>
@@ -173,12 +178,12 @@ export default () => {
                 onChange={onChange}
               />
               {errors?.password?.type === 'min' && (
-                <ErrorMessage className="required password">
+                <ErrorMessage className="password__ieast--6">
                   비밀번호는 최소 6자 이상
                 </ErrorMessage>
               )}
               {error?.message === 'auth/wrong-password' && (
-                <ErrorMessage className="wrong-password">
+                <ErrorMessage className="password--wrong">
                   잘못된 비밀번호
                 </ErrorMessage>
               )}
@@ -329,24 +334,35 @@ const ErrorMessage = styled.span`
 
   @media (min-width: 768px) {
     right: auto;
-    &.required {
-      left: -121px;
-    }
 
     &.password {
-      left: -150px;
+      &__ieast {
+        &--6 {
+          left: -150px;
+        }
+      }
+      &--wrong {
+        left: -112px;
+      }
     }
 
     &.email {
-      left: -154px;
-    }
+      &__required {
+        left: -121px;
+      }
 
-    &.already {
-      left: -132px;
-    }
+      &__format {
+        &--not {
+          left: -154px;
+        }
+      }
 
-    &.wrong-password {
-      left: -112px;
+      &__already {
+        left: -132px;
+        &--not {
+          left: -132px;
+        }
+      }
     }
   }
 
