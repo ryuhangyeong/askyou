@@ -6,24 +6,29 @@ import { GrFacebook } from 'react-icons/gr';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import clipboard from '../../utils/clipboard';
 
+// @Todo Component
 export default () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const onClick = () => setVisible(!visible);
   return (
     <Layout>
       <Wrapper visible={visible}>
-        <span onClick={onClick}>
+        <div className="item" onClick={onClick}>
           <FaShareAlt />
-        </span>
-        <span>
+          <span className="message">공유하기</span>
+        </div>
+        <div className="item">
           <GrFacebook />
-        </span>
-        <span>
+          <span className="message">페이스북</span>
+        </div>
+        <div className="item">
           <RiKakaoTalkFill />
-        </span>
-        <span onClick={() => clipboard('링크 복사 테스트')}>
+          <span className="message">카카오</span>
+        </div>
+        <div className="item" onClick={() => clipboard('링크 복사 테스트')}>
           <FiPaperclip />
-        </span>
+          <span className="message">주소복사</span>
+        </div>
       </Wrapper>
     </Layout>
   );
@@ -50,21 +55,21 @@ const Wrapper = styled.div<WrapperProps>`
   ${({ visible }) =>
     visible &&
     css`
-      span:nth-child(2) {
+      .item:nth-child(2) {
         transform: translateX(6rem);
         @media (max-width: 768px) {
           transform: translateY(6rem);
         }
       }
 
-      span:nth-child(3) {
+      .item:nth-child(3) {
         transform: translateX(12rem);
         @media (max-width: 768px) {
           transform: translateY(12rem);
         }
       }
 
-      span:nth-child(4) {
+      .item:nth-child(4) {
         transform: translateX(18rem);
         @media (max-width: 768px) {
           transform: translateY(18rem);
@@ -72,8 +77,9 @@ const Wrapper = styled.div<WrapperProps>`
       }
     `}
 
-  span {
+  .item {
     position: absolute;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,8 +91,58 @@ const Wrapper = styled.div<WrapperProps>`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
+    &:active,
+    &:hover {
+      .message {
+        display: block;
+      }
+    }
+    // @Todo Component
+    .message {
+      display: none;
+      position: absolute;
+      right: -55px;
+      border-radius: 3px;
+      width: 45px;
+      height: 30px;
+      line-height: 30px;
+      background-color: #1d1d1d;
+      color: #fff;
+      text-align: center;
+
+      @media (min-width: 768px) {
+        right: auto;
+        bottom: -40px;
+      }
+
+      &::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        transform: translateY(-50%);
+        border-top: 5px solid transparent;
+        border-right: 5px solid #1d1d1d;
+        border-left: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        content: '';
+        width: 0;
+        height: 0;
+
+        @media (min-width: 768px) {
+          top: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-top: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-left: 5px solid transparent;
+          border-bottom: 5px solid #1d1d1d;
+        }
+      }
+    }
+
     &:nth-child(1) {
-      z-index: 1;
+      z-index: 1000;
     }
 
     &:active,
