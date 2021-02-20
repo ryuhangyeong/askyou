@@ -4,10 +4,10 @@ import styled from 'styled-components';
 export default () => {
   return (
     <Layout>
-      <Wrapper>
+      <Wrapper type="button">
         <span className="word">결혼.</span>
       </Wrapper>
-      <Wrapper>
+      <Wrapper type="button">
         <span className="word">연애.</span>
       </Wrapper>
     </Layout>
@@ -17,11 +17,11 @@ export default () => {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  background-color: #fff;
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
+  background-color: #fff;
+  width: 100%;
+  height: 100vh;
 
   @media (max-width: 768px) {
     flex-direction: row;
@@ -32,11 +32,13 @@ const Layout = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
+  border: none;
+  background-color: inherit;
   cursor: pointer;
 
   & + & {

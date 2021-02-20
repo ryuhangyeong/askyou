@@ -6,29 +6,31 @@ import { GrFacebook } from 'react-icons/gr';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import Message from '../Message';
 import clipboard from '../../utils/clipboard';
+import { getUrl } from '../../utils/url';
 
 export default () => {
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
+  const onClipBoard = () => clipboard(getUrl());
   return (
     <Layout>
       <Wrapper visible={visible}>
-        <div className="item" onClick={onClick}>
+        <button type="button" className="item" onClick={onClick}>
           <FaShareAlt />
           <Message className="message">공유하기</Message>
-        </div>
-        <div className="item">
+        </button>
+        <button type="button" className="item">
           <GrFacebook />
           <Message className="message">페이스북</Message>
-        </div>
-        <div className="item">
+        </button>
+        <button type="button" className="item">
           <RiKakaoTalkFill />
           <Message className="message">카카오</Message>
-        </div>
-        <div className="item" onClick={() => clipboard('링크 복사 테스트')}>
+        </button>
+        <button type="button" className="item" onClick={onClipBoard}>
           <FiPaperclip />
           <Message className="message">주소복사</Message>
-        </div>
+        </button>
       </Wrapper>
     </Layout>
   );
