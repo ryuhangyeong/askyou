@@ -34,3 +34,6 @@ npx tsc --watch
 ## 이슈
 - 카카오톡(브라우저)으로 askyou 접속 후 [구글로 로그인]하는 경우, **disallowed_useragent** 오류가 뜬다. 
   - [관련 자료1](https://developers-kr.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html)
+
+## 개선할 수 있는 것들 정리
+- 현재 `index.html`에 있는 `kakaologin` 라이브러리를 `/auth/`에 접속했을 때나 혹은 [카카오톡 로그인하기] 마우스 오버시 가져오게 할 순 없을까?
