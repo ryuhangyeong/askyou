@@ -8,6 +8,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import styled from 'styled-components';
 import firebase from 'firebase';
 import AuthLayout from './AuthLayout';
+import Message from '../Message';
 import { signUpApi, signInApi, oauthApi } from '../../api/auth';
 import kakaoLogin from '../../functions/kakaoLogin';
 import useAuth from '../../hooks/useAuth';
@@ -108,9 +109,9 @@ export default () => {
           <em>페이스북으로 {type}</em>
           {error?.message ===
             'auth/account-exists-with-different-credential-facebook.com' && (
-            <ErrorMessage className="email__already">
+            <Message className="message email__already" width="auto">
               이미 존재하는 이메일
-            </ErrorMessage>
+            </Message>
           )}
         </button>
         <button
@@ -122,9 +123,9 @@ export default () => {
           <em>구글로 {type}</em>
           {error?.message ===
             'auth/account-exists-with-different-credential' && (
-            <ErrorMessage className="email__already">
+            <Message className="message email__already" width="auto">
               이미 존재하는 이메일
-            </ErrorMessage>
+            </Message>
           )}
         </button>
         <span className="or">또는</span>
@@ -148,24 +149,24 @@ export default () => {
                 onChange={onChange}
               />
               {errors?.email?.type === 'required' && (
-                <ErrorMessage className="email__required">
+                <Message className="message email__required" width="auto">
                   이메일은 필수입력
-                </ErrorMessage>
+                </Message>
               )}
               {errors?.email?.type === 'email' && (
-                <ErrorMessage className="email__format--not">
+                <Message className="message email__format--not" width="auto">
                   올바르지 않은 이메일 형식
-                </ErrorMessage>
+                </Message>
               )}
               {error?.message === 'auth/email-already-in-use' && (
-                <ErrorMessage className="email__already">
+                <Message className="message email__already" width="auto">
                   이미 존재하는 이메일
-                </ErrorMessage>
+                </Message>
               )}
               {error?.message === 'auth/user-not-found' && (
-                <ErrorMessage className="email__already--not">
+                <Message className="message email__already--not" width="auto">
                   존재하지 않는 이메일
-                </ErrorMessage>
+                </Message>
               )}
             </InputGroup>
             <InputGroup>
@@ -178,14 +179,14 @@ export default () => {
                 onChange={onChange}
               />
               {errors?.password?.type === 'min' && (
-                <ErrorMessage className="password__ieast--6">
+                <Message className="message password__ieast--6" width="auto">
                   비밀번호는 최소 6자 이상
-                </ErrorMessage>
+                </Message>
               )}
               {error?.message === 'auth/wrong-password' && (
-                <ErrorMessage className="password--wrong">
+                <Message className="message password--wrong" width="auto">
                   잘못된 비밀번호
-                </ErrorMessage>
+                </Message>
               )}
             </InputGroup>
             <Button type="submit">{type} 하기</Button>
@@ -290,6 +291,61 @@ const InputGroup = styled.div`
   & + & {
     margin-top: 2rem;
   }
+
+  .message {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+
+    @media (min-width: 768px) {
+      right: auto;
+
+      &.password {
+        &__ieast {
+          &--6 {
+            left: -150px;
+          }
+        }
+        &--wrong {
+          left: -112px;
+        }
+      }
+
+      &.email {
+        &__required {
+          left: -121px;
+        }
+
+        &__format {
+          &--not {
+            left: -154px;
+          }
+        }
+
+        &__already {
+          left: -132px;
+          &--not {
+            left: -132px;
+          }
+        }
+      }
+    }
+
+    &::after {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+      content: '';
+      border-top: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-left: 5px solid #1d1d1d;
+      border-bottom: 5px solid transparent;
+      width: 0;
+      height: 0;
+    }
+  }
 `;
 
 const Input = styled.input`
@@ -319,65 +375,5 @@ const Button = styled.button`
     border: 1px solid #f33;
     background-color: #f33;
     color: #fff;
-  }
-`;
-
-const ErrorMessage = styled.span`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  border-radius: 3px;
-  padding: 1rem 2rem;
-  background-color: #1d1d1d;
-  color: #fff;
-
-  @media (min-width: 768px) {
-    right: auto;
-
-    &.password {
-      &__ieast {
-        &--6 {
-          left: -150px;
-        }
-      }
-      &--wrong {
-        left: -112px;
-      }
-    }
-
-    &.email {
-      &__required {
-        left: -121px;
-      }
-
-      &__format {
-        &--not {
-          left: -154px;
-        }
-      }
-
-      &__already {
-        left: -132px;
-        &--not {
-          left: -132px;
-        }
-      }
-    }
-  }
-
-  &::after {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: -10px;
-    display: block;
-    content: '';
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-left: 5px solid #1d1d1d;
-    border-bottom: 5px solid transparent;
   }
 `;

@@ -4,30 +4,30 @@ import { FaShareAlt } from 'react-icons/fa';
 import { FiPaperclip } from 'react-icons/fi';
 import { GrFacebook } from 'react-icons/gr';
 import { RiKakaoTalkFill } from 'react-icons/ri';
+import Message from '../Message';
 import clipboard from '../../utils/clipboard';
 
-// @Todo Component
 export default () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
   return (
     <Layout>
       <Wrapper visible={visible}>
         <div className="item" onClick={onClick}>
           <FaShareAlt />
-          <span className="message">공유하기</span>
+          <Message className="message">공유하기</Message>
         </div>
         <div className="item">
           <GrFacebook />
-          <span className="message">페이스북</span>
+          <Message className="message">페이스북</Message>
         </div>
         <div className="item">
           <RiKakaoTalkFill />
-          <span className="message">카카오</span>
+          <Message className="message">카카오</Message>
         </div>
         <div className="item" onClick={() => clipboard('링크 복사 테스트')}>
           <FiPaperclip />
-          <span className="message">주소복사</span>
+          <Message className="message">주소복사</Message>
         </div>
       </Wrapper>
     </Layout>
@@ -94,21 +94,13 @@ const Wrapper = styled.div<WrapperProps>`
     &:active,
     &:hover {
       .message {
-        display: block;
+        display: flex;
       }
     }
-    // @Todo Component
+
     .message {
       display: none;
-      position: absolute;
-      right: -55px;
-      border-radius: 3px;
-      width: 45px;
-      height: 30px;
-      line-height: 30px;
-      background-color: #1d1d1d;
-      color: #fff;
-      text-align: center;
+      right: -80px;
 
       @media (min-width: 768px) {
         right: auto;
@@ -121,11 +113,11 @@ const Wrapper = styled.div<WrapperProps>`
         top: 50%;
         left: -10px;
         transform: translateY(-50%);
+        content: '';
         border-top: 5px solid transparent;
         border-right: 5px solid #1d1d1d;
         border-left: 5px solid transparent;
         border-bottom: 5px solid transparent;
-        content: '';
         width: 0;
         height: 0;
 
