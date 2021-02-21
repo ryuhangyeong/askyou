@@ -25,6 +25,7 @@ const Layout = styled.div`
 
   @media (min-width: 768px) {
     flex-direction: column;
+    margin-bottom: 0;
     height: 100vh;
   }
 `;

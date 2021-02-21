@@ -7,10 +7,13 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import Message from '../Message';
 import clipboard from '../../utils/clipboard';
 import { getUrl } from '../../utils/url';
+import useToast from '../../hooks/useToast';
 
 export default () => {
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
+  const { onToast } = useToast();
+
   const onClipBoard = (mode: string) => {
     if (mode === 'facebook') {
       console.log('facebook');
@@ -18,7 +21,9 @@ export default () => {
       console.log('kakao');
     } else if (mode === 'url') {
       clipboard(getUrl());
+      onToast('링크가 복사되었습니다.');
     }
+    setVisible(false);
   };
   return (
     <Layout>
@@ -49,7 +54,7 @@ export default () => {
           onClick={() => onClipBoard('url')}
         >
           <FiPaperclip />
-          <Message className="message">주소복사</Message>
+          <Message className="message">주소 복사</Message>
         </button>
       </Wrapper>
     </Layout>
@@ -117,6 +122,7 @@ const Wrapper = styled.div<WrapperProps>`
     transition: all 0.2s ease-in-out;
 
     &:active,
+    &:focus,
     &:hover {
       .message {
         display: flex;
