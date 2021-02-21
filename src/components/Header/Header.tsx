@@ -53,11 +53,11 @@ const Wrapper = styled(Responsive)`
 const Logo = styled.h1`
   a {
     font-family: 'IstokWeb', sans-serif;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 2rem;
 
-    @media (max-width: 768px) {
-      font-weight: 700;
+    @media (min-width: 768px) {
+      font-weight: 400;
     }
   }
 `;

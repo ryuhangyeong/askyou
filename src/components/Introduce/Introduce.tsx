@@ -61,13 +61,13 @@ const Wrapper = styled.div`
   justify-content: center;
   overflow: hidden;
   width: 100%;
-  height: 50rem;
+  height: calc(100vh - 7rem);
   background-color: #e9ecef;
   color: #000;
   font-weight: 100;
 
-  @media (max-width: 768px) {
-    height: calc(100vh - 56px);
+  @media (min-width: 768px) {
+    height: 50rem;
   }
 `;
 

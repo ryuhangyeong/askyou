@@ -26,21 +26,19 @@ export default () => {
 
 const Layout = styled(Responsive)`
   display: flex;
+  flex-direction: column;
   align-items: center;
   height: 100vh;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
   }
 `;
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   flex: 1;
-
-  @media (max-width: 768px) {
-    align-items: center;
-  }
 
   &.center {
     justify-content: center;
@@ -53,12 +51,12 @@ const Title = styled.div`
   display: inline-block;
 
   h1 {
-    font-size: 5.5rem;
+    font-size: 4rem;
     font-weight: 300;
+    line-height: 5.5rem;
 
-    @media (max-width: 768px) {
-      font-size: 4rem;
-      line-height: 5.5rem;
+    @media (min-width: 768px) {
+      font-size: 5.5rem;
     }
   }
 
@@ -70,18 +68,11 @@ const Title = styled.div`
     content: '"';
     font-size: 7.5rem;
     font-weight: 500;
+    display: none;
 
-    @media (max-width: 1024px) {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
+    @media (min-width: 768px) {
       top: -3rem;
       display: block;
-    }
-
-    @media (max-width: 330px) {
-      display: none;
     }
   }
 

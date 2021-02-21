@@ -13,7 +13,7 @@ import { signUpApi, signInApi, oauthApi } from '../../api/auth';
 import kakaoLogin from '../../functions/kakaoLogin';
 import useAuth from '../../hooks/useAuth';
 
-interface Inputs {
+export interface Inputs {
   email: string;
   password: string;
 }

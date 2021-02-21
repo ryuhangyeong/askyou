@@ -12,15 +12,15 @@ export default ({ children }: AuthLayoutProps) => {
 const Wrapper = styled.div`
   position: absolute;
   top: 7rem;
-  right: 0;
+  right: 1rem;
   bottom: 0;
-  left: 0;
+  left: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 768px) {
-    right: 1rem;
-    left: 1rem;
+  @media (min-width: 768px) {
+    right: 0;
+    left: 0;
   }
 `;

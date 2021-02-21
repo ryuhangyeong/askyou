@@ -11,7 +11,15 @@ import { getUrl } from '../../utils/url';
 export default () => {
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
-  const onClipBoard = () => clipboard(getUrl());
+  const onClipBoard = (mode: string) => {
+    if (mode === 'facebook') {
+      console.log('facebook');
+    } else if (mode === 'kakao') {
+      console.log('kakao');
+    } else if (mode === 'url') {
+      clipboard(getUrl());
+    }
+  };
   return (
     <Layout>
       <Wrapper visible={visible}>
@@ -19,15 +27,27 @@ export default () => {
           <FaShareAlt />
           <Message className="message">공유하기</Message>
         </button>
-        <button type="button" className="item">
+        <button
+          type="button"
+          className="item"
+          onClick={() => onClipBoard('facebook')}
+        >
           <GrFacebook />
           <Message className="message">페이스북</Message>
         </button>
-        <button type="button" className="item">
+        <button
+          type="button"
+          className="item"
+          onClick={() => onClipBoard('kakao')}
+        >
           <RiKakaoTalkFill />
           <Message className="message">카카오</Message>
         </button>
-        <button type="button" className="item" onClick={onClipBoard}>
+        <button
+          type="button"
+          className="item"
+          onClick={() => onClipBoard('url')}
+        >
           <FiPaperclip />
           <Message className="message">주소복사</Message>
         </button>
@@ -38,12 +58,12 @@ export default () => {
 
 const Layout = styled.div`
   position: absolute;
-  top: 3rem;
-  left: 3rem;
+  top: 1.5rem;
+  left: 1.5rem;
 
-  @media (max-width: 768px) {
-    top: 1.5rem;
-    left: 1.5rem;
+  @media (min-width: 768px) {
+    top: 3rem;
+    left: 3rem;
   }
 `;
 
@@ -58,23 +78,26 @@ const Wrapper = styled.div<WrapperProps>`
     visible &&
     css`
       .item:nth-child(2) {
-        transform: translateX(6rem);
-        @media (max-width: 768px) {
-          transform: translateY(6rem);
+        transform: translateY(6rem);
+
+        @media (min-width: 768px) {
+          transform: translateX(6rem);
         }
       }
 
       .item:nth-child(3) {
-        transform: translateX(12rem);
-        @media (max-width: 768px) {
-          transform: translateY(12rem);
+        transform: translateY(12rem);
+
+        @media (min-width: 768px) {
+          transform: translateX(12rem);
         }
       }
 
       .item:nth-child(4) {
-        transform: translateX(18rem);
-        @media (max-width: 768px) {
-          transform: translateY(18rem);
+        transform: translateY(18rem);
+
+        @media (min-width: 768px) {
+          transform: translateX(18rem);
         }
       }
     `}

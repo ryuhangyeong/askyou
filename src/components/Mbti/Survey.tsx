@@ -16,19 +16,16 @@ export default () => {
 
 const Layout = styled.div`
   display: flex;
-  flex-direction: column;
-  border-left: 1px solid #eee;
-  border-right: 1px solid #eee;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
   background-color: #fff;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
-  @media (max-width: 768px) {
-    flex-direction: row;
-    height: 100%;
-    margin-bottom: 2rem;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+  @media (min-width: 768px) {
+    flex-direction: column;
+    height: 100vh;
   }
 `;
 
@@ -42,11 +39,12 @@ const Wrapper = styled.button`
   cursor: pointer;
 
   & + & {
-    border-top: 1px solid #eee;
+    border-top: none;
+    border-left: 1px solid #eee;
 
-    @media (max-width: 768px) {
-      border-top: none;
-      border-left: 1px solid #eee;
+    @media (min-width: 768px) {
+      border-top: 1px solid #eee;
+      border-left: none;
     }
   }
 
@@ -56,10 +54,11 @@ const Wrapper = styled.button`
   }
 
   .word {
-    font-size: 10rem;
+    font-size: 5rem;
     font-weight: 700;
-    @media (max-width: 768px) {
-      font-size: 5rem;
+
+    @media (min-width: 768px) {
+      font-size: 10rem;
     }
   }
 `;
