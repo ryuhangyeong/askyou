@@ -96,7 +96,7 @@ export const getExplorerType: MBTI[] = [
   },
 ];
 
-export const getMBTIs: MBTI[] = [
+export const getMbti: MBTI[] = [
   ...getAnalysisType,
   ...getDiplomacyType,
   ...getManagerType,

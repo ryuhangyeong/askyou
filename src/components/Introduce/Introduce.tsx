@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
 import MbtiItem from './MbtiItem';
-import { getMBTIs } from '../../mbti/getMBTIs';
+import { getMbti } from '../../mbti/getMbti';
 
 export default () => {
   const SIZE = 6.5;
@@ -10,9 +10,9 @@ export default () => {
   const [idx, setIdx] = useState(1);
   const ulElement = useRef<HTMLUListElement>(null);
 
-  const mbtis = getMBTIs.concat({
-    ...getMBTIs[0],
-    id: getMBTIs[getMBTIs.length - 1].id + 1,
+  const mbtis = getMbti.concat({
+    ...getMbti[0],
+    id: getMbti[getMbti.length - 1].id + 1,
   });
 
   const len = mbtis.length;
