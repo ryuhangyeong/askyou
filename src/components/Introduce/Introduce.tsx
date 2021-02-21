@@ -48,7 +48,7 @@ export default () => {
             ))}
           </ul>
         </h2>
-        <span>에게</span>
+        <span className="to">에게</span>
         <h2>궁금한 모든 것을 질문하세요.</h2>
       </Inner>
     </Wrapper>
@@ -80,7 +80,7 @@ const Inner = styled(Responsive)`
       position: relative;
       overflow: hidden;
       display: inline-block;
-      width: 13rem;
+      width: 14.5rem;
       height: 6.5rem;
       line-height: 6.5rem;
 
@@ -89,22 +89,11 @@ const Inner = styled(Responsive)`
         width: 100%;
         top: 0;
         transition: all 0.2s ease-in-out;
-        li {
-          text-align: center;
-          height: 6.5rem;
-
-          span {
-            display: block;
-            height: inherit;
-            background-color: #000;
-            color: #fff;
-            font-weight: 700;
-          }
-        }
       }
     }
   }
-  span {
+
+  .to {
     vertical-align: top;
     line-height: 6.5rem;
     font-size: 5rem;
