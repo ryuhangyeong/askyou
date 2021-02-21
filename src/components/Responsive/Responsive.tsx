@@ -19,7 +19,7 @@ const Wrapper = styled.div`
     width: 768px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1068px) {
     width: 1024px;
   }
 `;
