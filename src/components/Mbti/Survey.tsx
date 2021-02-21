@@ -1,14 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ISurvey } from '../../mbti/getSurvey';
 
-export default () => {
+export interface SurveyProps {
+  survey: ISurvey[];
+  idx: number;
+  onSurvey: (type: string) => void;
+}
+
+export default ({ survey, idx, onSurvey }: SurveyProps) => {
   return (
     <Layout>
-      <Wrapper type="button">
-        <span className="word">결혼.</span>
+      <Wrapper type="button" onClick={() => onSurvey(survey[idx]?.A?.type)}>
+        <span className="word">{survey[idx]?.A?.title}</span>
       </Wrapper>
-      <Wrapper type="button">
-        <span className="word">연애.</span>
+      <Wrapper type="button" onClick={() => onSurvey(survey[idx]?.B?.type)}>
+        <span className="word">{survey[idx]?.B?.title}</span>
       </Wrapper>
     </Layout>
   );

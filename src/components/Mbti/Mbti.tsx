@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
 import Share from './Share';
 import Survey from './Survey';
+import { getSurvey } from '../../mbti/getSurvey';
 
 export default () => {
+  const [idx, setIdx] = useState(0);
+  const [result, setResult] = useState<string[]>([]);
+
+  // @TODO 구현 예정
+  const onClick = useCallback(
+    (type) => {
+      if (idx > getSurvey.length - 1) {
+        // 테스트 종료
+        return;
+      }
+
+      setResult([...result, type]);
+      setIdx(idx + 1);
+    },
+    [result, idx]
+  );
+
+  console.log(result);
   return (
     <>
       <Share />
@@ -17,7 +36,7 @@ export default () => {
           </Title>
         </Wrapper>
         <Wrapper className="center">
-          <Survey />
+          <Survey survey={getSurvey} idx={idx} onSurvey={onClick} />
         </Wrapper>
       </Layout>
     </>

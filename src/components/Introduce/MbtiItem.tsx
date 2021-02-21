@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MBTI } from '../../mbti/getMbti';
+import { IMBTI } from '../../mbti/getMbti';
 
-export type MbtiItemProps = {
-  mbti: MBTI;
-};
+export interface MbtiItemProps {
+  mbti: IMBTI;
+}
 
 export default ({ mbti }: MbtiItemProps) => (
   <Wrapper>
