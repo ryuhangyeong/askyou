@@ -15,11 +15,11 @@ const Wrapper = styled.div`
   padding: 0 1rem;
   width: 100%;
 
-  @media (min-width: 768px) {
+  @media (min-width: 788px) {
     width: 768px;
   }
 
-  @media (min-width: 1068px) {
+  @media (min-width: 1048px) {
     width: 1024px;
   }
 `;

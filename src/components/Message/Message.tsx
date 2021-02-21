@@ -13,7 +13,7 @@ export default ({ children, className, ...rest }: MessageProps) => (
   </Wrapper>
 );
 
-const Wrapper = styled.span`
+const Wrapper = styled.span<MessageProps>`
   position: absolute;
   display: flex;
   align-items: center;
@@ -22,5 +22,5 @@ const Wrapper = styled.span`
   padding: 1rem 2rem;
   background-color: #1d1d1d;
   color: #fff;
-  width: ${({ width }: MessageProps) => (width ? `${width}` : '40px')};
+  width: ${({ width }) => (width ? `${width}` : '40px')};
 `;

@@ -62,28 +62,28 @@ const Wrapper = styled.div`
     }
 
     @keyframes spinner1 {
-      0% {
+      from {
         transform: scale(0);
       }
-      100% {
+      to {
         transform: scale(1);
       }
     }
 
     @keyframes spinner2 {
-      0% {
+      from {
         transform: translate(0, 0);
       }
-      100% {
+      to {
         transform: translate(24px, 0);
       }
     }
 
     @keyframes spinner3 {
-      0% {
+      from {
         transform: scale(1);
       }
-      100% {
+      to {
         transform: scale(0);
       }
     }
