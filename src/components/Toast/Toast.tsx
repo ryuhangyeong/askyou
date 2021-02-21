@@ -34,7 +34,7 @@ const Layout = styled.div<ToastProps>`
 
   @keyframes slide-in--mobile {
     from {
-      transform: translateY(20rem);
+      transform: translateY(30rem);
     }
     to {
       transform: scale(1);
@@ -46,7 +46,7 @@ const Layout = styled.div<ToastProps>`
       transform: scale(1);
     }
     to {
-      transform: translateY(20rem);
+      transform: translateY(30rem);
     }
   }
 
@@ -66,7 +66,7 @@ const Layout = styled.div<ToastProps>`
 
     @keyframes slide-in--pc {
       from {
-        transform: translateX(20rem);
+        transform: translateX(30rem);
       }
       to {
         transform: scale(1);
@@ -78,7 +78,7 @@ const Layout = styled.div<ToastProps>`
         transform: scale(1);
       }
       to {
-        transform: translateX(20rem);
+        transform: translateX(30rem);
       }
     }
   }
@@ -86,6 +86,7 @@ const Layout = styled.div<ToastProps>`
 
 const Wrapper = styled(Message)`
   position: relative;
+  font-size: 1.6rem;
 
   &.toast {
     height: 4rem;
