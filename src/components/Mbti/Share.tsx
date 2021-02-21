@@ -30,7 +30,7 @@ export default () => {
       <Wrapper visible={visible}>
         <button type="button" className="item" onClick={onClick}>
           <FaShareAlt />
-          <Message className="message">공유하기</Message>
+          {visible && <Message className="message">공유하기</Message>}
         </button>
         <button
           type="button"
@@ -38,7 +38,7 @@ export default () => {
           onClick={() => onClipBoard('facebook')}
         >
           <GrFacebook />
-          <Message className="message">페이스북</Message>
+          {visible && <Message className="message">페이스북</Message>}
         </button>
         <button
           type="button"
@@ -46,7 +46,7 @@ export default () => {
           onClick={() => onClipBoard('kakao')}
         >
           <RiKakaoTalkFill />
-          <Message className="message">카카오</Message>
+          {visible && <Message className="message">카카오</Message>}
         </button>
         <button
           type="button"
@@ -54,7 +54,7 @@ export default () => {
           onClick={() => onClipBoard('url')}
         >
           <FiPaperclip />
-          <Message className="message">주소 복사</Message>
+          {visible && <Message className="message">주소 복사</Message>}
         </button>
       </Wrapper>
     </Layout>
