@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../Responsive';
 import Share from './Share';
 import Survey from './Survey';
+import ProgressBar from '../ProgressBar';
 import { getSurvey } from '../../mbti/getSurvey';
 
 export default () => {
@@ -22,8 +23,6 @@ export default () => {
     },
     [result, idx]
   );
-
-  console.log(result);
   return (
     <>
       <Share />
@@ -36,6 +35,7 @@ export default () => {
           </Title>
         </Wrapper>
         <Wrapper className="center">
+          <ProgressBar progress={idx * 3} />
           <Survey survey={getSurvey} idx={idx} onSurvey={onClick} />
         </Wrapper>
       </Layout>
@@ -60,8 +60,13 @@ const Wrapper = styled.div`
   flex: 1;
 
   &.center {
+    flex-direction: column;
     justify-content: center;
     width: 100%;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
   }
 `;
 

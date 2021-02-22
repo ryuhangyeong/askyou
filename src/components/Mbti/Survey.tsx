@@ -66,7 +66,7 @@ const Wrapper = styled.button`
     font-weight: 700;
 
     @media (min-width: 768px) {
-      font-size: 10rem;
+      font-size: 8rem;
     }
   }
 `;
