@@ -1,13 +1,12 @@
+export interface ISurveyItem {
+  title: string;
+  type: string;
+}
+
 export interface ISurvey {
   id: number;
-  A: {
-    title: string;
-    type: string;
-  };
-  B: {
-    title: string;
-    type: string;
-  };
+  A: ISurveyItem;
+  B: ISurveyItem;
 }
 
 export const getSurveyTypeEI: ISurvey[] = [
