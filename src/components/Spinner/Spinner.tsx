@@ -16,6 +16,7 @@ export default () => {
 
 const Layout = styled.div`
   position: fixed;
+  z-index: 1001;
   top: 0;
   right: 0;
   bottom: 0;
