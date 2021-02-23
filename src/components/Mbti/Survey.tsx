@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ISurvey } from '../../mbti/getSurvey';
+import { ISurvey, ISurveyItem } from '../../mbti/getSurvey';
 
 export interface SurveyProps {
-  survey: ISurvey[];
+  list: ISurvey[];
   idx: number;
-  onSurvey: (type: string) => void;
+  onSelect: (type: ISurveyItem) => void;
 }
 
-export default ({ survey, idx, onSurvey }: SurveyProps) => {
+export default ({ list, idx, onSelect }: SurveyProps) => {
   return (
     <Layout>
-      <Wrapper type="button" onClick={() => onSurvey(survey[idx]?.A?.type)}>
-        <span className="word">{survey[idx]?.A?.title}</span>
+      <Wrapper type="button" onClick={() => onSelect(list[idx]?.A)}>
+        <span className="word">{list[idx]?.A?.title}</span>
       </Wrapper>
-      <Wrapper type="button" onClick={() => onSurvey(survey[idx]?.B?.type)}>
-        <span className="word">{survey[idx]?.B?.title}</span>
+      <Wrapper type="button" onClick={() => onSelect(list[idx]?.B)}>
+        <span className="word">{list[idx]?.B?.title}</span>
       </Wrapper>
     </Layout>
   );

@@ -4,25 +4,27 @@ import Responsive from '../Responsive';
 import Share from './Share';
 import Survey from './Survey';
 import ProgressBar from '../ProgressBar';
-import { getSurvey } from '../../mbti/getSurvey';
+import Spinner from '../Spinner';
+import useSurvey from '../../hooks/useSurvey';
 
 export default () => {
   const [idx, setIdx] = useState(0);
-  const [result, setResult] = useState<string[]>([]);
+  const { loading, list, onSurveyLoading, onSurveySelect } = useSurvey();
 
-  // @TODO 구현 예정
-  const onClick = useCallback(
-    (type) => {
-      if (idx > getSurvey.length - 1) {
-        // 테스트 종료
-        return;
+  const onSelect = useCallback(
+    (data) => {
+      if (idx <= list.length - 1) {
+        setIdx(idx + 1);
+        onSurveySelect(data);
       }
 
-      setResult([...result, type]);
-      setIdx(idx + 1);
+      if (idx === list.length - 1) {
+        onSurveyLoading(true);
+      }
     },
-    [result, idx]
+    [idx, setIdx, onSurveyLoading, onSurveySelect, list.length]
   );
+
   return (
     <>
       <Share />
@@ -35,10 +37,11 @@ export default () => {
           </Title>
         </Wrapper>
         <Wrapper className="center">
-          <ProgressBar progress={idx * 3} />
-          <Survey survey={getSurvey} idx={idx} onSurvey={onClick} />
+          <ProgressBar progress={idx * (100 / 36)} />
+          <Survey list={list} idx={idx} onSelect={onSelect} />
         </Wrapper>
       </Layout>
+      {loading && <Spinner />}
     </>
   );
 };
