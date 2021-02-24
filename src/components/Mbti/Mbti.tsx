@@ -9,20 +9,17 @@ import useSurvey from '../../hooks/useSurvey';
 
 export default () => {
   const [idx, setIdx] = useState(0);
-  const { loading, list, onSurveyLoading, onSurveySelect } = useSurvey();
+  const { loading, list, onSurveySelect } = useSurvey();
 
   const onSelect = useCallback(
     (data) => {
-      if (idx <= list.length - 1) {
+      const len = list.length;
+      if (idx <= len - 1) {
         setIdx(idx + 1);
         onSurveySelect(data);
       }
-
-      if (idx === list.length - 1) {
-        onSurveyLoading(true);
-      }
     },
-    [idx, setIdx, onSurveyLoading, onSurveySelect, list.length]
+    [idx, setIdx, onSurveySelect, list.length]
   );
 
   return (

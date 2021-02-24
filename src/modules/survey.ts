@@ -1,22 +1,24 @@
 import { deprecated, ActionType, createReducer } from 'typesafe-actions';
-import { getSurvey, ISurvey } from '../mbti/getSurvey';
+import { getSurvey, ISurvey, ISurveyItem } from '../data/survey';
 
 const { createStandardAction } = deprecated;
 
-const SURVEY_LOADING = 'survey/SURVEY_LOADING';
+const SURVEY_COMPLETED = 'survey/SURVEY_COMPLETED';
 const SURVEY_SELECT = 'survey/SURVEY_SELECT';
 
-export const surveyLoading = createStandardAction(SURVEY_LOADING)<boolean>();
-export const surveySelect = createStandardAction(SURVEY_SELECT)<ISurvey>();
+export const surveyCompleted = createStandardAction(
+  SURVEY_COMPLETED
+)<boolean>();
+export const surveySelect = createStandardAction(SURVEY_SELECT)<ISurveyItem>();
 
-const actions = { surveyLoading, surveySelect };
+const actions = { surveyCompleted, surveySelect };
 
 type SurveyAction = ActionType<typeof actions>;
 
 type SurveyState = {
   loading: boolean;
   list: ISurvey[];
-  select: ISurvey[];
+  select: ISurveyItem[];
   mbti: string;
 };
 
@@ -28,18 +30,14 @@ const initialState: SurveyState = {
 };
 
 const survey = createReducer<SurveyState, SurveyAction>(initialState, {
-  [SURVEY_LOADING]: (state, action) => ({
+  [SURVEY_COMPLETED]: (state, action) => ({
     ...state,
     loading: action.payload,
   }),
-  [SURVEY_SELECT]: (state, action) => {
-    const select = [...state.select, action.payload];
-    // @TODO
-    return {
-      ...state,
-      select,
-    };
-  },
+  [SURVEY_SELECT]: (state, action) => ({
+    ...state,
+    select: [...state.select, action.payload],
+  }),
 });
 
 export default survey;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ISurvey, ISurveyItem } from '../../mbti/getSurvey';
+import { ISurvey, ISurveyItem } from '../../data/survey';
 
 export interface SurveyProps {
   list: ISurvey[];
