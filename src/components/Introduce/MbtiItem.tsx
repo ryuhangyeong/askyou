@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IMBTI } from '../../mbti/getMbti';
+import { IMBTI } from '../../data/mbti';
 
 export interface MbtiItemProps {
   mbti: IMBTI;

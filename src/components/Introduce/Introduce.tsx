@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
 import MbtiItem from './MbtiItem';
-import { getMbti } from '../../mbti/getMbti';
+import { getMbti } from '../../data/mbti';
 
 export default () => {
   const SIZE = 6.5;
