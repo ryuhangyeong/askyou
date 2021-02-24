@@ -1,5 +1,3 @@
-import { kMaxLength } from 'buffer';
-
 export interface ISurveyItem {
   title: string;
   type: string;
