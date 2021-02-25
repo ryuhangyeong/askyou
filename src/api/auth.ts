@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import kakaoLogin from '../functions/kakaoLogin';
 
 export const signUpApi = async (email: string, password: string) => {
   const data = await firebase
@@ -33,4 +34,9 @@ export const oauthApi = async (type: string) => {
   }
 
   return data;
+};
+
+export const oauthKakao = async (accessToken: string) => {
+  const token = await kakaoLogin(accessToken);
+  await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
 };

@@ -6,11 +6,9 @@ import * as yup from 'yup';
 import { GrFacebook, GrGoogle, GrMail } from 'react-icons/gr';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import styled from 'styled-components';
-import firebase from 'firebase';
 import AuthLayout from './AuthLayout';
 import Message from '../Message';
-import { signUpApi, signInApi, oauthApi } from '../../api/auth';
-import kakaoLogin from '../../functions/kakaoLogin';
+import { signUpApi, signInApi, oauthApi, oauthKakao } from '../../api/auth';
 import useAuth from '../../hooks/useAuth';
 
 export interface Inputs {
@@ -47,18 +45,13 @@ export default () => {
     resolver: yupResolver(schema),
   });
 
-  const onOauthKakao = async (accessToken: string) => {
-    const token = await kakaoLogin(accessToken);
-    await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
-  };
-
   const onKakaoLogin = () => {
     window.Kakao.Auth.login({
       success(data: any) {
         const { access_token: accessToken } = data;
         (async () => {
           onAuthLoadingPromise(async () => {
-            await onOauthKakao(accessToken);
+            await oauthKakao(accessToken);
             history.push('/');
           });
         })();
