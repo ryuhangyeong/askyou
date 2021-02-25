@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import './firebase';
+
 import Spinner from './components/Spinner';
 import Toast from './components/Toast';
 import useAuth from './hooks/useAuth';

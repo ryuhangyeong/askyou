@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+
 import { RootState } from '../modules';
 import { authLoading, authFetch, userType } from '../modules/auth';
 

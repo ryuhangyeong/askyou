@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './modules';
 
 import App from './App';
+import './firebase';
 import './style/lib/normalize.css';
 import './style/index.css';
 
