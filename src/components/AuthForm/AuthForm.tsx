@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import AuthLayout from './AuthLayout';
 import Message from '../Message';
 import { signUpApi, signInApi, oauthApi, oauthKakao } from '../../api/auth';
+import createRequest from '../../utils/createRequest';
 
 export interface Inputs {
   email: string;
@@ -48,7 +49,8 @@ export default () => {
       success(data: any) {
         const { access_token: accessToken } = data;
         (async () => {
-          await oauthKakao(accessToken);
+          const request = createRequest('auth/CURRENT_USER', oauthKakao);
+          await request({ accessToken });
           history.push('/');
         })();
       },
@@ -58,7 +60,8 @@ export default () => {
 
   const onOauth = async (type: string) => {
     try {
-      await oauthApi(type);
+      const request = createRequest('auth/CURRENT_USER', oauthApi);
+      await request({ type });
       history.push('/');
     } catch ({ code, credential: { providerId } }) {
       setError({ message: `${code}-${providerId}` });
