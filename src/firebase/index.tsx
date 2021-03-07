@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
 import 'firebase/auth';
-import 'firebase/firestore';
+import 'firebase/database';
 import 'firebase/functions';
 
 const {
@@ -23,5 +23,3 @@ firebase.initializeApp({
   appId: REACT_APP_APP_ID,
   measurementId: REACT_APP_MEASUREMENT_ID,
 });
-
-firebase.firestore();
