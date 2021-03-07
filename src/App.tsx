@@ -21,8 +21,9 @@ const App = () => {
   const { loading } = useLoading();
   const { visible, message, animate } = useToast();
 
+  /* eslint react-hooks/exhaustive-deps: "off" */
   /*
-   * @description
+   *@description onGetCurrentUser는 인증 감지 함수이므로 useEffect 두번째 인자에 적용하면 무한 루프 실행됨
    */
   useEffect(() => {
     onGetCurrentUser();
