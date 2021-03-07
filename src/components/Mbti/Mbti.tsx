@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
-import Share from './Share';
-import Survey from './Survey';
+import Survey from '../Survey';
 import ProgressBar from '../ProgressBar';
 import Spinner from '../Spinner';
 import useSurvey from '../../hooks/useSurvey';
@@ -24,7 +23,6 @@ export default () => {
 
   return (
     <>
-      <Share />
       <Layout>
         <Wrapper>
           <Title>
