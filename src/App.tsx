@@ -9,6 +9,7 @@ import {
 import Spinner from './components/Spinner';
 import Toast from './components/Toast';
 import useAuth from './hooks/useAuth';
+import useLoading from './hooks/useLoading';
 import useToast from './hooks/useToast';
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'));
@@ -16,12 +17,17 @@ const AuthPage = React.lazy(() => import('./pages/AuthPage'));
 const MbtiPage = React.lazy(() => import('./pages/MbtiPage'));
 
 const App = () => {
-  const { user, loading, onAuthStateChanged } = useAuth();
+  const { user, onGetCurrentUser } = useAuth();
+  const { loading } = useLoading();
   const { visible, message, animate } = useToast();
 
+  /*
+   * @description
+   */
   useEffect(() => {
-    onAuthStateChanged();
+    onGetCurrentUser();
   }, []);
+
   return (
     <>
       <Suspense fallback={<Spinner />}>
@@ -38,7 +44,7 @@ const App = () => {
                     }}
                   />
                 ) : (
-                  !loading && <AuthPage />
+                  !loading['auth/CURRENT_USER'] && <AuthPage />
                 )
               }
             />
@@ -47,7 +53,7 @@ const App = () => {
           </Switch>
         </Router>
       </Suspense>
-      {loading && <Spinner />}
+      {loading['auth/CURRENT_USER'] && <Spinner />}
       {visible && <Toast animate={animate}>{message}</Toast>}
     </>
   );

@@ -40,3 +40,10 @@ export const oauthKakao = async (accessToken: string) => {
   const token = await kakaoLogin(accessToken);
   await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
 };
+
+export const getCurrentUser = (
+  callback: (user: firebase.User | null) => void
+) =>
+  firebase
+    .auth()
+    .onAuthStateChanged((user: firebase.User | null) => callback(user));

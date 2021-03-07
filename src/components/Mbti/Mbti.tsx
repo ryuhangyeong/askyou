@@ -38,7 +38,7 @@ export default () => {
           <Survey list={list} idx={idx} onSelect={onSelect} />
         </Wrapper>
       </Layout>
-      {loading && <Spinner />}
+      {loading['survey/SURVEY_CREATE'] && <Spinner />}
     </>
   );
 };

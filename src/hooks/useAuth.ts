@@ -1,34 +1,28 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import firebase from 'firebase/app';
-
 import { RootState } from '../modules';
-import { authLoading, authFetch, userType } from '../modules/auth';
+import useLoading from './useLoading';
+import { authFetch, userType } from '../modules/auth';
+import { getCurrentUser } from '../api/auth';
 
 export default function useAuth() {
-  const { user, loading } = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { onLoadingStart, onLoadingFinish } = useLoading();
 
-  const onAuthLoading = useCallback(
-    (status: boolean) => dispatch(authLoading(status)),
-    [dispatch]
-  );
+  const dispatch = useDispatch();
 
   const onAuthFetch = useCallback(
     (data: userType) => dispatch(authFetch(data)),
     [dispatch]
   );
 
-  const onAuthLoadingPromise = async (promise: () => Promise<void>) => {
-    onAuthLoading(true);
-    await promise();
-    onAuthLoading(false);
-  };
-
-  // TODO 리팩토링
-  const onAuthStateChanged = async () => {
-    onAuthLoading(true);
-    firebase.auth().onAuthStateChanged((data) => {
+  /*
+   * @description createRequest로 하는 경우 변경사항을 감지하지 못하여 아래처럼 직접 로더 구현
+   */
+  const onGetCurrentUser = async () => {
+    onLoadingStart('auth/CURRENT_USER');
+    getCurrentUser((data) => {
+      console.log(data);
       if (!data) onAuthFetch(data);
       else {
         const { displayName, email, uid } = data;
@@ -38,16 +32,13 @@ export default function useAuth() {
           uid,
         });
       }
-      onAuthLoading(false);
+      onLoadingFinish('auth/CURRENT_USER');
     });
   };
 
   return {
     user,
-    loading,
-    onAuthLoading,
     onAuthFetch,
-    onAuthStateChanged,
-    onAuthLoadingPromise,
+    onGetCurrentUser,
   };
 }

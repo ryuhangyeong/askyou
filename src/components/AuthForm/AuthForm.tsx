@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import AuthLayout from './AuthLayout';
 import Message from '../Message';
 import { signUpApi, signInApi, oauthApi, oauthKakao } from '../../api/auth';
-import useAuth from '../../hooks/useAuth';
 
 export interface Inputs {
   email: string;
@@ -32,7 +31,6 @@ export default () => {
     window.Kakao.init(process.env.REACT_APP_KAKAO_LOGIN);
   }
 
-  const { onAuthLoadingPromise } = useAuth();
   const [authType, setAuthType] = useState(false);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState({
@@ -50,10 +48,8 @@ export default () => {
       success(data: any) {
         const { access_token: accessToken } = data;
         (async () => {
-          onAuthLoadingPromise(async () => {
-            await oauthKakao(accessToken);
-            history.push('/');
-          });
+          await oauthKakao(accessToken);
+          history.push('/');
         })();
       },
       fail() {},
@@ -62,10 +58,8 @@ export default () => {
 
   const onOauth = async (type: string) => {
     try {
-      onAuthLoadingPromise(async () => {
-        await oauthApi(type);
-        history.push('/');
-      });
+      await oauthApi(type);
+      history.push('/');
     } catch ({ code, credential: { providerId } }) {
       setError({ message: `${code}-${providerId}` });
     }

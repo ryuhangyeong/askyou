@@ -1,20 +1,16 @@
 import { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules';
-import { surveyCompleted, surveySelect } from '../modules/survey';
-import { getAnalysisMbti } from '../data/survey';
+import { surveySelect } from '../modules/survey';
+import { createSurvey } from '../api/survey';
+import createRequest from '../utils/createRequest';
 
 export default function useSurvey() {
-  const { loading, list, select } = useSelector(
-    (state: RootState) => state.survey
-  );
+  const { list, select } = useSelector((state: RootState) => state.survey);
+  const loading = useSelector((state: RootState) => state.loading);
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch();
-
-  const onSurveyCompleted = useCallback(
-    (data) => dispatch(surveyCompleted(data)),
-    [dispatch]
-  );
 
   const onSurveySelect = useCallback((data) => dispatch(surveySelect(data)), [
     dispatch,
@@ -22,16 +18,15 @@ export default function useSurvey() {
 
   useEffect(() => {
     if (list.length === select.length) {
-      onSurveyCompleted(true);
-      alert(getAnalysisMbti(select));
+      const request = createRequest('survey/SURVEY_CREATE', createSurvey);
+      request({ uid: user?.uid, select });
     }
-  }, [list.length, select.length, select, onSurveyCompleted]);
+  }, [list.length, select.length, select, user?.uid]);
 
   return {
-    loading,
     list,
+    loading,
     select,
-    onSurveyCompleted,
     onSurveySelect,
   };
 }
