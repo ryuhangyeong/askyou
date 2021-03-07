@@ -20,7 +20,9 @@ export const logout = async () => {
   return data;
 };
 
-export const oauthApi = async (type: string) => {
+export const oauthApi = async (payload: { type: string }) => {
+  const { type } = payload;
+
   let data;
 
   if (type === 'Google') {
@@ -36,7 +38,8 @@ export const oauthApi = async (type: string) => {
   return data;
 };
 
-export const oauthKakao = async (accessToken: string) => {
+export const oauthKakao = async (payload: { accessToken: string }) => {
+  const { accessToken } = payload;
   const token = await kakaoLogin(accessToken);
   await firebase.auth().signInWithCustomToken(token?.data?.firebaseToken);
 };
