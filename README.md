@@ -35,5 +35,7 @@ npx tsc --watch
 - 카카오톡(브라우저)으로 askyou 접속 후 [구글로 로그인]하는 경우, **disallowed_useragent** 오류가 뜬다. 
   - [관련 자료1](https://developers-kr.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html)
 
+- `Introduce` 컴포넌트에서 `setInterval`과 `setTimeout`으로 구현된 것을 `requestAnimationFrame`으로 개선하였다. 애니메이션이나 렌더링 성능 향상때 주로 `requestAnimationFrame`를 사용한다고 하여 사용해서 동일 기능을 구현해보았는데. 실제로 성능이 개선되었는지 확인하는 방법을 잘 모른다. **이전 코드와 개선 코드**를 크롬 개발자 도구의 Performace를 통해서 비교를 해보았는데. Summary나 Memory 부분을 보아도 뭐가 달라진건지 잘 모르겠다. 잘못쓴거겠지??
+
 ## 개선할 수 있는 것들 정리
 - 현재 `index.html`에 있는 `kakaologin` 라이브러리를 `/auth/`에 접속했을 때나 혹은 [카카오톡 로그인하기] 마우스 오버시 가져오게 할 순 없을까?
