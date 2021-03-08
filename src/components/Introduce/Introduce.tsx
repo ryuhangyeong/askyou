@@ -18,23 +18,33 @@ export default () => {
   const len = mbtis.length;
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const { current } = ulElement;
+    const { current } = ulElement;
+    let timer: ReturnType<typeof setTimeout>;
 
-      if (current !== null) {
-        setIdx(idx + 1);
-        current.style.transition = `all ${DURATION / 10000}s ease-in-out`;
-        current.style.transform = `translateY(-${SIZE * idx}rem)`;
-        if (idx >= len - 1) {
-          setTimeout(() => {
-            current.style.transition = 'none';
-            current.style.transform = 'none';
-            setIdx(1);
-          }, DURATION / 10);
+    function animate() {
+      timer = setTimeout(() => {
+        if (current !== null) {
+          current.style.transition = `all ${DURATION / 10000}s ease-in-out`;
+          current.style.transform = `translateY(-${SIZE * idx}rem)`;
+
+          if (idx >= len - 1) {
+            setTimeout(() => {
+              current.style.transition = 'none';
+              current.style.transform = 'none';
+              setIdx(1);
+            }, DURATION / 10);
+          } else {
+            setIdx(idx + 1);
+          }
         }
-      }
-    }, DURATION);
-    return () => clearInterval(timer);
+      }, DURATION);
+    }
+
+    const requestTimer = window.requestAnimationFrame(animate);
+    return () => {
+      window.cancelAnimationFrame(requestTimer);
+      clearTimeout(timer);
+    };
   }, [idx, len]);
 
   return (
