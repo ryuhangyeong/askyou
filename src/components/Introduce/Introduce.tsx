@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
 import MbtiItem from './MbtiItem';
@@ -17,35 +17,36 @@ export default () => {
 
   const len = mbtis.length;
 
-  useEffect(() => {
+  const timer = useRef<number | undefined | null>(null);
+
+  const animate = useCallback(() => {
     const { current } = ulElement;
-    let timer: ReturnType<typeof setTimeout>;
 
-    function animate() {
-      timer = setTimeout(() => {
-        if (current !== null) {
-          current.style.transition = `all ${DURATION / 10000}s ease-in-out`;
-          current.style.transform = `translateY(-${SIZE * idx}rem)`;
+    timer.current = window.setTimeout(() => {
+      if (current !== null) {
+        current.style.transition = `all ${DURATION / 10000}s ease-in-out`;
+        current.style.transform = `translateY(-${SIZE * idx}rem)`;
 
-          if (idx >= len - 1) {
-            setTimeout(() => {
-              current.style.transition = 'none';
-              current.style.transform = 'none';
-              setIdx(1);
-            }, DURATION / 10);
-          } else {
-            setIdx(idx + 1);
-          }
+        if (idx >= len - 1) {
+          window.setTimeout(() => {
+            current.style.transition = 'none';
+            current.style.transform = 'none';
+            setIdx(1);
+          }, DURATION / 10);
+        } else {
+          setIdx(idx + 1);
         }
-      }, DURATION);
-    }
+      }
+    }, DURATION);
+  }, [idx, len]);
 
+  useEffect(() => {
     const requestTimer = window.requestAnimationFrame(animate);
     return () => {
       window.cancelAnimationFrame(requestTimer);
-      clearTimeout(timer);
+      if (timer.current) window.clearTimeout(timer.current);
     };
-  }, [idx, len]);
+  }, [animate]);
 
   return (
     <Wrapper>
