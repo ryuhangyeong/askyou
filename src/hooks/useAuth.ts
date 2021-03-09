@@ -22,7 +22,6 @@ export default function useAuth() {
   const onGetCurrentUser = async () => {
     onLoadingStart('auth/CURRENT_USER');
     getCurrentUser((data) => {
-      console.log(data);
       if (!data) onAuthFetch(data);
       else {
         const { displayName, email, uid } = data;
