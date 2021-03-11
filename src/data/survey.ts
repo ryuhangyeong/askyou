@@ -1,3 +1,5 @@
+import { getMbti } from './mbti';
+
 export interface ISurveyItem {
   title: string;
   type: string;
@@ -424,26 +426,50 @@ export const getSurvey: ISurvey[] = [
   ...getSurveyTypeJP,
 ].sort((a: ISurvey, b: ISurvey) => a.id - b.id);
 
-export const getAnalysisMbti = (list: ISurveyItem[]): string => {
+export const getAnalysisMbti = (data: ISurveyItem[]): string => {
   let mbti: string = '';
 
-  const statistics = list.reduce((acc, v) => {
+  const frequency = data.reduce((acc, v) => {
     if (!acc[v.type]) acc[v.type] = 0;
     acc[v.type] += 1;
     return acc;
   }, {} as { [key: string]: number });
 
-  if (statistics.I < statistics.E) mbti += 'E';
+  if (frequency.I < frequency.E) mbti += 'E';
   else mbti += 'I';
 
-  if (statistics.N < statistics.S) mbti += 'S';
+  if (frequency.N < frequency.S) mbti += 'S';
   else mbti += 'N';
 
-  if (statistics.F < statistics.T) mbti += 'T';
+  if (frequency.F < frequency.T) mbti += 'T';
   else mbti += 'F';
 
-  if (statistics.P < statistics.J) mbti += 'J';
+  if (frequency.P < frequency.J) mbti += 'J';
   else mbti += 'P';
 
   return mbti;
+};
+
+export interface IFrequency {
+  [key: string]: number;
+}
+
+export const getFrequencyMbti = (data: string[]) => {
+  const initFrequencyCount = getMbti
+    .map((item) => item.type)
+    .reduce((acc, k) => {
+      acc[k] = 0;
+      return acc;
+    }, {} as { [key: string]: number });
+
+  const completedFrequencyCount = data.reduce((acc, k) => {
+    if (!acc[k]) acc[k] = 0;
+    acc[k] += 1;
+    return acc;
+  }, {} as { [key: string]: number });
+
+  return {
+    ...initFrequencyCount,
+    ...completedFrequencyCount,
+  };
 };
