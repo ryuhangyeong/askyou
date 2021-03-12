@@ -10,6 +10,7 @@ import AuthLayout from './AuthLayout';
 import Message from '../Message';
 import { signUpApi, signInApi, oauthApi, oauthKakao } from '../../api/auth';
 import createRequest from '../../utils/createRequest';
+import '../../lib/kakaologin';
 
 export interface Inputs {
   email: string;
