@@ -1,34 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { HorizontalBar } from 'react-chartjs-2';
-import Responsive from '../Responsive';
+import { Context } from 'chartjs-plugin-datalabels';
 import { getSurveyResult, ISurveyResult } from '../../api/survey';
 import { getFrequencyMbti } from '../../data/survey';
+import Responsive from '../Responsive';
 
 const options = {
+  maintainAspectRatio: false,
   legend: {
     display: false,
   },
-  scales: {
-    yAxes: [
-      {
-        gridLines: {
-          display: false,
-        },
+  plugins: {
+    datalabels: {
+      color: '#fff',
+      formatter: (value: number, context: Context) => {
+        return `${context.chart.data.labels[context.dataIndex]} (${value})`;
       },
-    ],
-    xAxes: [
-      {
-        gridLines: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-        },
-      },
-    ],
-    ticks: {
-      display: false,
     },
   },
 };
@@ -49,8 +37,9 @@ export default () => {
     labels: Object.keys(result),
     datasets: [
       {
+        data: Object.values(result),
         backgroundColor: [
-          '#868e96',
+          '#862e9c',
           '#fa5252',
           '#e64980',
           '#be4bdb',
@@ -67,14 +56,12 @@ export default () => {
           '#e9fac8',
           '#d3f9d8',
         ],
-        data: Object.values(result),
       },
     ],
   };
-
   return (
     <Layout>
-      <HorizontalBar data={data} options={options} />
+      <Doughnut data={data} options={options} />
     </Layout>
   );
 };

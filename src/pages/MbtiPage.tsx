@@ -3,6 +3,7 @@ import { Route, useRouteMatch } from 'react-router-dom';
 import Share from '../components/Share';
 import Mbti from '../components/Mbti';
 import Analysis from '../components/Analysis';
+import 'chartjs-plugin-datalabels';
 
 const MbtiPage = () => {
   const { path } = useRouteMatch();

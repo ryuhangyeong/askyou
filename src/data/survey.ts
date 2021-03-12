@@ -1,5 +1,3 @@
-import { getMbti } from './mbti';
-
 export interface ISurveyItem {
   title: string;
   type: string;
@@ -454,22 +452,9 @@ export interface IFrequency {
   [key: string]: number;
 }
 
-export const getFrequencyMbti = (data: string[]) => {
-  const initFrequencyCount = getMbti
-    .map((item) => item.type)
-    .reduce((acc, k) => {
-      acc[k] = 0;
-      return acc;
-    }, {} as { [key: string]: number });
-
-  const completedFrequencyCount = data.reduce((acc, k) => {
+export const getFrequencyMbti = (data: string[]) =>
+  data.reduce((acc, k) => {
     if (!acc[k]) acc[k] = 0;
     acc[k] += 1;
     return acc;
   }, {} as { [key: string]: number });
-
-  return {
-    ...initFrequencyCount,
-    ...completedFrequencyCount,
-  };
-};
