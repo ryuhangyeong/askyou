@@ -12,14 +12,21 @@ import { signUpApi, signInApi, oauthApi, oauthKakao } from '../../api/auth';
 import createRequest from '../../utils/createRequest';
 import '../../lib/kakaologin';
 
-export interface Inputs {
+export interface IInputs {
   email: string;
   password: string;
 }
 
 declare global {
   interface Window {
-    Kakao: any;
+    Kakao: {
+      isInitialized: () => {};
+      init: (KAKAO_LOGIN_API_KEY: string | undefined) => {};
+      Auth: {
+        // @todo 매개 변수에 객체의 여러 콜백 함수를 넘기는 경우에 오류가 발생하여 일단 any로
+        login: any;
+      };
+    };
   }
 }
 
@@ -55,7 +62,6 @@ export default () => {
           history.push('/');
         })();
       },
-      fail() {},
     });
   };
 
@@ -69,7 +75,7 @@ export default () => {
     }
   };
 
-  const onSubmit = async ({ email, password }: Inputs) => {
+  const onSubmit = async ({ email, password }: IInputs) => {
     try {
       if (authType) await signInApi(email, password);
       else await signUpApi(email, password);
