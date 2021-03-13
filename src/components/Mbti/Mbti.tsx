@@ -108,7 +108,7 @@ const Title = styled.div`
   }
 `;
 
-const SubTitle = styled.p`
+const SubTitle = styled.div`
   margin-top: 2rem;
   p {
     font-size: 1.4rem;
