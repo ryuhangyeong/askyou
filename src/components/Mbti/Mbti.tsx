@@ -23,6 +23,7 @@ export default () => {
 
   return (
     <>
+      {/* <ProgressBar progress={idx * (100 / 36)} /> */}
       <Layout>
         <Wrapper>
           <Title>
@@ -30,9 +31,16 @@ export default () => {
             <h1>단어로 알아보는</h1>
             <h1>MBTI</h1>
           </Title>
+          <SubTitle>
+            <p>
+              <strong>두 단어중 자신에게 더 가깝다고 느껴지는 단어</strong>를
+              선택해주세요.
+            </p>
+            <p>당신이 선택한 단어로 당신을 알아갑니다.</p>
+          </SubTitle>
         </Wrapper>
-        <Wrapper className="center">
-          <ProgressBar progress={idx * (100 / 36)} />
+        <ProgressBar progress={idx * (100 / 36)} />
+        <Wrapper>
           <Survey list={list} idx={idx} onSelect={onSelect} />
         </Wrapper>
       </Layout>
@@ -56,16 +64,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-
-  &.center {
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-
-    @media (min-width: 768px) {
-      flex-direction: row;
-    }
-  }
+  flex-direction: column;
+  width: 100%;
 `;
 
 const Title = styled.div`
@@ -104,5 +104,16 @@ const Title = styled.div`
 
   &::after {
     right: -2.5rem;
+  }
+`;
+
+const SubTitle = styled.p`
+  margin-top: 2rem;
+  p {
+    font-size: 1.4rem;
+
+    &:last-child {
+      margin-top: 1rem;
+    }
   }
 `;
