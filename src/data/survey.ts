@@ -1,6 +1,7 @@
 export interface ISurveyItem {
   title: string;
   type: string;
+  description?: string;
 }
 
 export interface ISurvey {
@@ -347,6 +348,7 @@ export const getSurveyTypeJP: ISurvey[] = [
     B: {
       title: '과단성',
       type: 'J',
+      description: '일을 딱 잘라 결정하는 성질',
     },
   },
   {

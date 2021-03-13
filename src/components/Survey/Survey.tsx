@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { ISurvey, ISurveyItem } from '../../data/survey';
+import Message from '../Message';
 
 export interface SurveyProps {
   list: ISurvey[];
@@ -12,10 +14,28 @@ export default ({ list, idx, onSelect }: SurveyProps) => {
   return (
     <Layout>
       <Wrapper type="button" onClick={() => onSelect(list[idx]?.A)}>
-        <span className="word">{list[idx]?.A?.title}</span>
+        <Word>{list[idx]?.A?.title}</Word>
+        {list[idx].A.description && (
+          <Helper onClick={(e) => e.stopPropagation()}>
+            <label htmlFor={`${list[idx].A.title}`}>
+              <AiOutlineQuestionCircle />
+              <input type="checkbox" id={`${list[idx].A.title}`} />
+              <Message className="message">{list[idx].A.description}</Message>
+            </label>
+          </Helper>
+        )}
       </Wrapper>
       <Wrapper type="button" onClick={() => onSelect(list[idx]?.B)}>
-        <span className="word">{list[idx]?.B?.title}</span>
+        <Word>{list[idx]?.B?.title}</Word>
+        {list[idx].B.description && (
+          <Helper onClick={(e) => e.stopPropagation()}>
+            <label htmlFor={`${list[idx].B.title}`}>
+              <AiOutlineQuestionCircle />
+              <input type="checkbox" id={`${list[idx].B.title}`} />
+              <Message className="message">{list[idx].B.description}</Message>
+            </label>
+          </Helper>
+        )}
       </Wrapper>
     </Layout>
   );
@@ -38,6 +58,7 @@ const Layout = styled.div`
 `;
 
 const Wrapper = styled.button`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,13 +81,46 @@ const Wrapper = styled.button`
   &:hover {
     background-color: #f1f3f5;
   }
+`;
 
-  .word {
-    font-size: 5rem;
-    font-weight: 700;
+const Word = styled.span`
+  font-size: 5rem;
+  font-weight: 700;
 
-    @media (min-width: 768px) {
-      font-size: 8rem;
+  @media (min-width: 768px) {
+    font-size: 8rem;
+  }
+`;
+
+const Helper = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  label {
+    display: block;
+
+    .message {
+      display: none;
+      max-width: 100px;
     }
+
+    input[type='checkbox'] {
+      display: none;
+
+      &:checked + .message {
+        position: absolute;
+        right: 0;
+        display: block;
+      }
+    }
+  }
+
+  p {
+    display: none;
+  }
+
+  svg {
+    font-size: 3rem;
   }
 `;
