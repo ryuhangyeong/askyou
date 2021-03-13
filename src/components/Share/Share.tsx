@@ -131,7 +131,7 @@ const Wrapper = styled.div<WrapperProps>`
 
     .message {
       display: none;
-      right: -80px;
+      right: -90px;
       width: 6rem;
       font-size: 1.5rem;
 

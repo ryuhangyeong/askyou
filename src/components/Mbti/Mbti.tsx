@@ -23,7 +23,6 @@ export default () => {
 
   return (
     <>
-      {/* <ProgressBar progress={idx * (100 / 36)} /> */}
       <Layout>
         <Wrapper>
           <Title>
