@@ -24,7 +24,7 @@ export default ({ list, idx, onSelect }: SurveyProps) => {
 const Layout = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border: 1px solid #eee;
   background-color: #fff;
   width: 100%;

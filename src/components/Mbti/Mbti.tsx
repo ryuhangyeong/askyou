@@ -63,6 +63,7 @@ const Layout = styled(Responsive)`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 1;
   flex-direction: column;
   width: 100%;
