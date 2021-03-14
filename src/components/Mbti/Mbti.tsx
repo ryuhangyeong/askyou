@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Responsive from '../Responsive';
 import Survey from '../Survey';
@@ -8,7 +8,13 @@ import useSurvey from '../../hooks/useSurvey';
 
 export default () => {
   const [idx, setIdx] = useState(0);
-  const { loading, list, onSurveySelect } = useSurvey();
+  const {
+    loading,
+    list,
+    onSurveySelect,
+    onSurveySelectClear,
+    onSurveySetMbti,
+  } = useSurvey();
 
   const onSelect = useCallback(
     (data) => {
@@ -20,6 +26,11 @@ export default () => {
     },
     [idx, setIdx, onSurveySelect, list.length]
   );
+
+  useEffect(() => {
+    onSurveySelectClear();
+    onSurveySetMbti('');
+  }, [onSurveySelectClear, onSurveySetMbti]);
 
   return (
     <>

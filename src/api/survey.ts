@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import { getAnalysisMbti, ISurveyItem } from '../data/survey';
+import { ISurveyItem } from '../data/survey';
 
 export interface ISurveyResult {
   created: number;
@@ -13,13 +13,14 @@ const database = firebase.database().ref('survey/');
 export const createSurvey = async (payload: {
   uid: string | undefined;
   select: ISurveyItem[];
+  mbti: string;
 }) => {
-  const { uid = '', select = [] } = payload;
+  const { uid = '', select = [], mbti } = payload;
   const data = await database.push({
     created: firebase.database.ServerValue.TIMESTAMP,
-    mbti: getAnalysisMbti(select),
     uid,
     select,
+    mbti,
   });
   return data;
 };
