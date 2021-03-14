@@ -1,20 +1,29 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import Responsive from '../Responsive';
 import Survey from '../Survey';
 import ProgressBar from '../ProgressBar';
 import Spinner from '../Spinner';
 import useSurvey from '../../hooks/useSurvey';
+import useAuth from '../../hooks/useAuth';
+import { getAnalysisMbti } from '../../data/survey';
+import { createSurvey } from '../../api/survey';
+import createRequest from '../../utils/createRequest';
 
 export default () => {
   const [idx, setIdx] = useState(0);
   const {
     loading,
     list,
+    select,
+    mbti,
     onSurveySelect,
     onSurveySelectClear,
     onSurveySetMbti,
   } = useSurvey();
+  const { user } = useAuth();
+  const history = useHistory();
 
   const onSelect = useCallback(
     (data) => {
@@ -28,9 +37,36 @@ export default () => {
   );
 
   useEffect(() => {
-    onSurveySelectClear();
+    if (list.length === select.length && !mbti) {
+      (async () => {
+        const analysisMbti = getAnalysisMbti(select);
+
+        onSurveySetMbti(analysisMbti);
+        const request = createRequest('survey/SURVEY_CREATE', createSurvey);
+        await request({
+          uid: user?.uid,
+          select,
+          mbti: analysisMbti,
+        });
+
+        history.push(`/mbti/result`);
+      })();
+    }
+  }, [
+    list.length,
+    select.length,
+    select,
+    mbti,
+    user?.uid,
+    onSurveySelectClear,
+    onSurveySetMbti,
+    history,
+  ]);
+
+  useEffect(() => {
     onSurveySetMbti('');
-  }, [onSurveySelectClear, onSurveySetMbti]);
+    onSurveySelectClear();
+  }, [onSurveySetMbti, onSurveySelectClear]);
 
   return (
     <>
