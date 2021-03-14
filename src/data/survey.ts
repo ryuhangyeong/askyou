@@ -337,6 +337,7 @@ export const getSurveyTypeJP: ISurvey[] = [
     B: {
       title: '융통적',
       type: 'P',
+      description: '그때그때의 사정과 형편을 보아 일을 처리하는 재주',
     },
   },
   {
@@ -389,6 +390,8 @@ export const getSurveyTypeJP: ISurvey[] = [
     A: {
       title: '지배인',
       type: 'J',
+      description:
+        '주인을 대신하여 영업에 관한 일체의 업무를 관리하는 권한을 가진 최고 책임자.',
     },
     B: {
       title: '기업가',

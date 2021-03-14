@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineQuestionCircle } from 'react-icons/ai';
+import { BsQuestionCircle } from 'react-icons/bs';
 import { ISurvey, ISurveyItem } from '../../data/survey';
 import Message from '../Message';
 
@@ -15,24 +15,24 @@ export default ({ list, idx, onSelect }: SurveyProps) => {
     <Layout>
       <Wrapper type="button" onClick={() => onSelect(list[idx]?.A)}>
         <Word>{list[idx]?.A?.title}</Word>
-        {list[idx].A.description && (
+        {list[idx]?.A?.description && (
           <Helper onClick={(e) => e.stopPropagation()}>
             <label htmlFor={`${list[idx].A.title}`}>
-              <AiOutlineQuestionCircle />
-              <input type="checkbox" id={`${list[idx].A.title}`} />
-              <Message className="message">{list[idx].A.description}</Message>
+              <BsQuestionCircle />
+              <input type="checkbox" id={`${list[idx]?.A?.title}`} />
+              <Message className="message">{list[idx]?.A?.description}</Message>
             </label>
           </Helper>
         )}
       </Wrapper>
       <Wrapper type="button" onClick={() => onSelect(list[idx]?.B)}>
         <Word>{list[idx]?.B?.title}</Word>
-        {list[idx].B.description && (
+        {list[idx]?.B?.description && (
           <Helper onClick={(e) => e.stopPropagation()}>
             <label htmlFor={`${list[idx].B.title}`}>
-              <AiOutlineQuestionCircle />
-              <input type="checkbox" id={`${list[idx].B.title}`} />
-              <Message className="message">{list[idx].B.description}</Message>
+              <BsQuestionCircle />
+              <input type="checkbox" id={`${list[idx]?.B?.title}`} />
+              <Message className="message">{list[idx]?.B?.description}</Message>
             </label>
           </Helper>
         )}
@@ -122,5 +122,6 @@ const Helper = styled.div`
 
   svg {
     font-size: 3rem;
+    cursor: pointer;
   }
 `;

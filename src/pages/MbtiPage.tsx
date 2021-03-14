@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
 import Share from '../components/Share';
 import Mbti from '../components/Mbti';
-import Analysis from '../components/Analysis';
+import MbtiAnalysis from '../components/MbtiAnalysis';
+import MbtiResult from '../components/MbtiResult';
+
 import 'chartjs-plugin-datalabels';
 
 const MbtiPage = () => {
@@ -12,7 +14,8 @@ const MbtiPage = () => {
     <>
       <Share />
       <Route exact path={path} component={Mbti} />
-      <Route path={`${path}/analysis`} component={Analysis} />
+      <Route path={`${path}/analysis`} component={MbtiAnalysis} />
+      <Route path={`${path}/result`} component={MbtiResult} />
     </>
   );
 };

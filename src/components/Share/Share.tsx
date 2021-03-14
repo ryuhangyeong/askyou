@@ -137,7 +137,7 @@ const Wrapper = styled.div<WrapperProps>`
 
       @media (min-width: 768px) {
         right: auto;
-        bottom: -40px;
+        bottom: -45px;
       }
 
       &::after {
