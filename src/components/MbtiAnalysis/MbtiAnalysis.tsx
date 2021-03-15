@@ -61,13 +61,44 @@ export default () => {
   };
   return (
     <Layout>
-      <Doughnut data={data} options={options} />
+      <Wrapper>
+        <h1>단어로 알아보는</h1>
+        <h1>MBTI</h1>
+      </Wrapper>
+      <Wrapper>
+        <Doughnut data={data} options={options} />
+      </Wrapper>
     </Layout>
   );
 };
 
 const Layout = styled(Responsive)`
-  display: flex;
-  align-items: center;
+  overflow: hidden;
   height: 100vh;
+`;
+
+/*
+ * @description flex로 하는 경우 chart.js의 width, height 값 고정으로 인해 
+  정확히 절반씩 표현을 하지 못하여 부득히 하게 float로 설정
+ */
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+
+  h1 {
+    font-size: 3.5rem;
+
+    @media (min-width: 768px) {
+      font-size: 5.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    float: left;
+    width: 50%;
+    height: 100%;
+  }
 `;
