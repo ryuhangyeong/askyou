@@ -7,6 +7,7 @@ import ProgressBar from '../ProgressBar';
 import Spinner from '../Spinner';
 import useSurvey from '../../hooks/useSurvey';
 import useAuth from '../../hooks/useAuth';
+import useLoading from '../../hooks/useLoading';
 import { getAnalysisMbti } from '../../data/survey';
 import { createSurvey } from '../../api/survey';
 import createRequest from '../../utils/createRequest';
@@ -14,7 +15,6 @@ import createRequest from '../../utils/createRequest';
 export default () => {
   const [idx, setIdx] = useState(0);
   const {
-    loading,
     list,
     select,
     mbti,
@@ -22,6 +22,9 @@ export default () => {
     onSurveySelectClear,
     onSurveySetMbti,
   } = useSurvey();
+
+  const { loading } = useLoading();
+
   const { user } = useAuth();
   const history = useHistory();
 

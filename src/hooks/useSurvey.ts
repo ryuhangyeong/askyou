@@ -11,7 +11,6 @@ export default function useSurvey() {
   const { list, select, mbti } = useSelector(
     (state: RootState) => state.survey
   );
-  const loading = useSelector((state: RootState) => state.loading);
 
   const dispatch = useDispatch();
 
@@ -29,7 +28,6 @@ export default function useSurvey() {
 
   return {
     list,
-    loading,
     select,
     mbti,
     onSurveySelect,
