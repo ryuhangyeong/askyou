@@ -62,13 +62,13 @@ export default () => {
 };
 
 const Layout = styled.div`
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
+  display: none;
 
   @media (min-width: 768px) {
+    position: absolute;
     top: 3rem;
     left: 3rem;
+    display: block;
   }
 `;
 
@@ -83,27 +83,15 @@ const Wrapper = styled.div<WrapperProps>`
     visible &&
     css`
       .item:nth-child(2) {
-        transform: translateY(6rem);
-
-        @media (min-width: 768px) {
-          transform: translateX(6rem);
-        }
+        transform: translateX(6rem);
       }
 
       .item:nth-child(3) {
-        transform: translateY(12rem);
-
-        @media (min-width: 768px) {
-          transform: translateX(12rem);
-        }
+        transform: translateX(12rem);
       }
 
       .item:nth-child(4) {
-        transform: translateY(18rem);
-
-        @media (min-width: 768px) {
-          transform: translateX(18rem);
-        }
+        transform: translateX(18rem);
       }
     `}
 
@@ -131,38 +119,22 @@ const Wrapper = styled.div<WrapperProps>`
 
     .message {
       display: none;
-      right: -90px;
       width: 6rem;
       font-size: 1.5rem;
-
-      @media (min-width: 768px) {
-        right: auto;
-        bottom: -45px;
-      }
+      right: auto;
+      bottom: -45px;
 
       &::after {
         display: block;
-        position: absolute;
-        top: 50%;
-        left: -10px;
-        transform: translateY(-50%);
         content: '';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
         border-top: 5px solid transparent;
-        border-right: 5px solid #1d1d1d;
+        border-right: 5px solid transparent;
         border-left: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        width: 0;
-        height: 0;
-
-        @media (min-width: 768px) {
-          top: -10px;
-          left: 50%;
-          transform: translateX(-50%);
-          border-top: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-left: 5px solid transparent;
-          border-bottom: 5px solid #1d1d1d;
-        }
+        border-bottom: 5px solid #1d1d1d;
       }
     }
 
