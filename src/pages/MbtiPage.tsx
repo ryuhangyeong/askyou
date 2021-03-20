@@ -5,8 +5,6 @@ import Mbti from '../components/Mbti';
 import MbtiAnalysis from '../components/MbtiAnalysis';
 import MbtiResult from '../components/MbtiResult';
 
-import 'chartjs-plugin-datalabels';
-
 const MbtiPage = () => {
   const { path } = useRouteMatch();
 

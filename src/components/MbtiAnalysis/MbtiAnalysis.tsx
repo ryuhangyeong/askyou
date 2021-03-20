@@ -1,104 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import React, { useRef, useEffect } from 'react';
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
 import styled from 'styled-components';
-import { Context } from 'chartjs-plugin-datalabels';
 import { getSurveyResult, ISurveyResult } from '../../api/survey';
 import { getFrequencyMbti } from '../../data/survey';
 import Responsive from '../Responsive';
 
-const options = {
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  plugins: {
-    datalabels: {
-      color: '#fff',
-      formatter: (value: number, context: Context) => {
-        return `${context.chart.data.labels[context.dataIndex]} (${value})`;
-      },
-    },
-  },
-};
+export interface IPie {
+  type: string;
+  value: number;
+}
 
 export default () => {
-  const [result, setResult] = useState({});
+  const chartRef = useRef<am4charts.PieChart | null | undefined>(null);
 
   useEffect(() => {
-    init();
+    const chart = am4core.create('chart', am4charts.PieChart);
+
+    (async () => {
+      const survey: ISurveyResult[] = await getSurveyResult();
+
+      chart.innerRadius = am4core.percent(40);
+      chart.data = Object.entries(
+        getFrequencyMbti(survey.map((item) => item.mbti))
+      ).map(([type, value]) => ({
+        type,
+        value,
+      }));
+      chartRef.current = chart;
+
+      const label = chart.createChild(am4core.Label);
+      label.text = `${survey.length}명의 검사 결과`;
+      label.fontSize = 20;
+      label.align = 'center';
+
+      const pieSeries: am4charts.PieSeries = chart.series.push(
+        new am4charts.PieSeries()
+      );
+      pieSeries.dataFields.value = 'value';
+      pieSeries.dataFields.category = 'type';
+      pieSeries.slices.template.stroke = am4core.color('#fff');
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+    })();
+
+    return () => chart.dispose();
   }, []);
 
-  const init = async () => {
-    const survey: ISurveyResult[] = await getSurveyResult();
-    setResult(getFrequencyMbti(survey.map((item) => item.mbti)));
-  };
+  useEffect(() => {
+    const $chart = document.querySelector('#chart') as HTMLElement;
 
-  const data = {
-    labels: Object.keys(result),
-    datasets: [
-      {
-        data: Object.values(result),
-        backgroundColor: [
-          '#862e9c',
-          '#fa5252',
-          '#e64980',
-          '#be4bdb',
-          '#7950f2',
-          '#4c6ef5',
-          '#228be6',
-          '#15aabf',
-          '#12b886',
-          '#40c057',
-          '#82c91e',
-          '#fab005',
-          '#fd7e14',
-          '#fff3bf',
-          '#e9fac8',
-          '#d3f9d8',
-        ],
-      },
-    ],
-  };
+    const resize = () => {
+      const windowSize = window.innerWidth || document.body.clientWidth;
+
+      let height: string = '100%';
+      if (windowSize <= 768) height = '40%';
+      $chart.style.height = height;
+    };
+
+    window.addEventListener('resize', resize);
+    resize();
+    return () => window.removeEventListener('resize', resize);
+  }, []);
+
   return (
     <Layout>
-      <Wrapper>
-        <h1>단어로 알아보는</h1>
-        <h1>MBTI</h1>
-      </Wrapper>
-      <Wrapper>
-        <Doughnut data={data} options={options} />
-      </Wrapper>
+      <div id="chart" style={{ width: '100%' }} />
     </Layout>
   );
 };
 
 const Layout = styled(Responsive)`
-  overflow: hidden;
-  height: 100vh;
-`;
-
-/*
- * @description flex로 하는 경우 chart.js의 width, height 값 고정으로 인해 
-  정확히 절반씩 표현을 하지 못하여 부득히 하게 float로 설정
- */
-const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 50vh;
+  height: 100vh;
 
-  h1 {
-    font-size: 3.5rem;
-
-    @media (min-width: 768px) {
-      font-size: 5.5rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    float: left;
-    width: 50%;
-    height: 100%;
+  #chart {
+    transition: height 1s;
   }
 `;
