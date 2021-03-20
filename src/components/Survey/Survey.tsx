@@ -99,18 +99,33 @@ const Helper = styled.div`
 
   label {
     display: block;
+    position: relative;
 
     .message {
+      position: absolute;
       display: none;
-      max-width: 100px;
+      font-size: 1.8rem;
+      min-width: 120px;
+
+      &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: -10px;
+        right: 2px;
+        border-top: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+        border-bottom: 5px solid #1d1d1d;
+      }
     }
 
     input[type='checkbox'] {
       display: none;
 
       &:checked + .message {
-        position: absolute;
-        right: 0;
+        top: 40px;
+        right: 9px;
         display: block;
       }
     }
