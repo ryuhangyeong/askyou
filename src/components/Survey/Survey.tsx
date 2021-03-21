@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ISurvey, ISurveyItem } from '../../data/survey';
 import Message from '../Message';
+import palette from '../../utils/palette';
 
 export interface SurveyProps {
   list: ISurvey[];
@@ -45,7 +46,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid ${palette.gray[1]};
   background-color: #fff;
   width: 100%;
   height: 100%;
@@ -69,17 +70,17 @@ const Wrapper = styled.button`
 
   & + & {
     border-top: none;
-    border-left: 1px solid #eee;
+    border-left: 1px solid ${palette.gray[1]};
 
     @media (min-width: 768px) {
-      border-top: 1px solid #eee;
+      border-top: 1px solid ${palette.gray[1]};
       border-left: none;
     }
   }
 
   &:active,
   &:hover {
-    background-color: #f1f3f5;
+    background-color: ${palette.gray[1]};
   }
 `;
 
@@ -116,7 +117,7 @@ const Helper = styled.div`
         border-top: 5px solid transparent;
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
-        border-bottom: 5px solid #1d1d1d;
+        border-bottom: 5px solid ${palette.gray[9]};
       }
     }
 

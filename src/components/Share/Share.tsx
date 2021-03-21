@@ -8,6 +8,7 @@ import Message from '../Message';
 import clipboard from '../../utils/clipboard';
 import { getUrl } from '../../utils/url';
 import useToast from '../../hooks/useToast';
+import palette from '../../utils/palette';
 
 export default () => {
   const [visible, setVisible] = useState(false);
@@ -134,7 +135,7 @@ const Wrapper = styled.div<WrapperProps>`
         border-top: 5px solid transparent;
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
-        border-bottom: 5px solid #1d1d1d;
+        border-bottom: 5px solid ${palette.gray[9]};
       }
     }
 
@@ -144,10 +145,10 @@ const Wrapper = styled.div<WrapperProps>`
 
     &:active,
     &:hover {
-      border: 1px solid #212529;
+      border: 1px solid ${palette.gray[9]};
 
       svg {
-        color: #212529;
+        color: ${palette.gray[9]};
       }
     }
 

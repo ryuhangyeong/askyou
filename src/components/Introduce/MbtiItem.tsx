@@ -19,7 +19,7 @@ const Wrapper = styled.li`
   span {
     display: block;
     height: inherit;
-    background-color: #000;
+    background-color: #333;
     color: #fff;
     font-weight: 700;
   }

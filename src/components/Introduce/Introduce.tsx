@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../Responsive';
 import MbtiItem from './MbtiItem';
 import { getMbti } from '../../data/mbti';
+import palette from '../../utils/palette';
 
 export default () => {
   const SIZE = 6.5;
@@ -73,8 +74,8 @@ const Wrapper = styled.div`
   overflow: hidden;
   width: 100%;
   height: calc(100vh - 7rem);
-  background-color: #e9ecef;
-  color: #000;
+  background-color: ${palette.gray[1]};
+  color: #333;
   font-weight: 100;
 
   @media (min-width: 768px) {

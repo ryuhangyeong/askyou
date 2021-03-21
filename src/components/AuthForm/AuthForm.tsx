@@ -8,6 +8,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import styled from 'styled-components';
 import AuthLayout from './AuthLayout';
 import Message from '../Message';
+import palette from '../../utils/palette';
 import { signUpApi, signInApi, oauthApi, oauthKakao } from '../../api/auth';
 import createRequest from '../../utils/createRequest';
 import '../../lib/kakaologin';
@@ -236,14 +237,17 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #e0e0e0;
+    border: 1px solid ${palette.gray[1]};
     border-radius: 2px;
-    background-color: #fbfbfb;
+    background-color: ${palette.gray[0]};
     width: 100%;
     height: 5rem;
     cursor: pointer;
     font-weight: 100;
 
+    /*
+     * SNS 별 고유 색상 코드 유지
+     */
     &.facebook {
       svg {
         color: #4267b2;
@@ -258,7 +262,7 @@ const Wrapper = styled.div`
 
     &.email {
       border: 1px solid rgb(138, 140, 155);
-      background-color: #8a8c9b;
+      background-color: ${palette.gray[6]};
       color: #fff;
 
       svg {
@@ -337,7 +341,7 @@ const InputGroup = styled.div`
       content: '';
       border-top: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-left: 5px solid #1d1d1d;
+      border-left: 5px solid ${palette.gray[9]};
       border-bottom: 5px solid transparent;
       width: 0;
       height: 0;
@@ -348,7 +352,7 @@ const InputGroup = styled.div`
 const Input = styled.input`
   outline: none;
   border: none;
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${palette.gray[1]};
   border-radius: 2px;
   padding-left: 1rem;
   width: 100%;
@@ -359,18 +363,18 @@ const Input = styled.input`
 const Button = styled.button`
   border: none;
   margin-top: 2rem;
-  border: 1px solid #f33;
+  border: 1px solid ${palette.red[6]};
   border-radius: 2px;
   background-color: #fff;
   width: 100%;
   height: 5rem;
-  color: #f33;
+  color: ${palette.red[6]};
   font-size: 1.7rem;
   cursor: pointer;
 
   &:hover {
-    border: 1px solid #f33;
-    background-color: #f33;
+    border: 1px solid ${palette.red[6]};
+    background-color: ${palette.red[6]};
     color: #fff;
   }
 `;

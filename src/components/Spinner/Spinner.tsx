@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import palette from '../../utils/palette';
 
 export default () => {
   return (
@@ -37,7 +38,7 @@ const Wrapper = styled.div`
     position: absolute;
     top: 33px;
     border-radius: 50%;
-    background-color: #f33;
+    background-color: ${palette.red[6]};
     width: 13px;
     height: 13px;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);

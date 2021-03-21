@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import palette from '../../utils/palette';
 
 export interface MessageProps {
   children: React.ReactNode;
@@ -20,7 +21,7 @@ const Wrapper = styled.span<MessageProps>`
   justify-content: center;
   border-radius: 3px;
   padding: 1rem 2rem;
-  background-color: #1d1d1d;
+  background-color: ${palette.gray[9]};
   color: #fff;
   width: ${({ width }) => (width ? `${width}` : '40px')};
 `;

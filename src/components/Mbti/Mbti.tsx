@@ -160,7 +160,7 @@ const Title = styled.div`
 const SubTitle = styled.div`
   margin-top: 2rem;
   p {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 
     &:last-child {
       margin-top: 1rem;
