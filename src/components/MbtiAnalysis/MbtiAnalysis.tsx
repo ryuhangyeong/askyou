@@ -6,13 +6,8 @@ import { getSurveyResult, ISurveyResult } from '../../api/survey';
 import { getFrequencyMbti } from '../../data/survey';
 import Responsive from '../Responsive';
 
-export interface IPie {
-  type: string;
-  value: number;
-}
-
 export default () => {
-  const chartRef = useRef<am4charts.PieChart | null | undefined>(null);
+  const chartRef = useRef<am4charts.PieChart | null>(null);
 
   useEffect(() => {
     const chart = am4core.create('chart', am4charts.PieChart);
@@ -27,7 +22,6 @@ export default () => {
         type,
         value,
       }));
-      chartRef.current = chart;
 
       const label = chart.createChild(am4core.Label);
       label.text = `${survey.length}명의 검사 결과`;
@@ -42,6 +36,8 @@ export default () => {
       pieSeries.slices.template.stroke = am4core.color('#fff');
       pieSeries.hiddenState.properties.endAngle = -90;
       pieSeries.hiddenState.properties.startAngle = -90;
+
+      chartRef.current = chart;
     })();
 
     return () => chart.dispose();
@@ -52,14 +48,13 @@ export default () => {
 
     const resize = () => {
       const windowSize = window.innerWidth || document.body.clientWidth;
-
       let height: string = '100%';
       if (windowSize <= 768) height = '40%';
       $chart.style.height = height;
     };
 
-    window.addEventListener('resize', resize);
     resize();
+    window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
   }, []);
 
