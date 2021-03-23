@@ -4,6 +4,10 @@
 
 ![AskYou 기술스택](https://user-images.githubusercontent.com/27342882/107143735-138f0a00-697a-11eb-93e3-e0a61c72f728.PNG)
 
+## 프로젝트 앞으로 해야할 일들 정리
+
+[여기에서 확인](https://github.com/ryuhangyeong/Askyou/projects/1)
+
 ## 기술 스택
 - Reactjs
 - React Router
