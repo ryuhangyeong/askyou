@@ -5,9 +5,13 @@ import Responsive from '../Responsive';
 import Survey from '../Survey';
 import ProgressBar from '../ProgressBar';
 import Spinner from '../Spinner';
+import Share from '../Share';
+import Toast from '../Toast';
 import useSurvey from '../../hooks/useSurvey';
 import useAuth from '../../hooks/useAuth';
+import useToast from '../../hooks/useToast';
 import useLoading from '../../hooks/useLoading';
+import useAnimation from '../../hooks/useAnimation';
 import { getAnalysisMbti } from '../../data/survey';
 import { createSurvey } from '../../api/survey';
 import createRequest from '../../utils/createRequest';
@@ -27,6 +31,8 @@ export default () => {
 
   const { user } = useAuth();
   const history = useHistory();
+  const { visible, animate, tick } = useAnimation();
+  const { message, onToastOpen } = useToast();
 
   const onSelect = useCallback(
     (data) => {
@@ -37,6 +43,14 @@ export default () => {
       }
     },
     [idx, setIdx, onSurveySelect, list.length]
+  );
+
+  const onToast = useCallback(
+    (text: string) => {
+      tick();
+      onToastOpen(text);
+    },
+    [tick, onToastOpen]
   );
 
   useEffect(() => {
@@ -73,6 +87,7 @@ export default () => {
 
   return (
     <>
+      <Share onToast={onToast} />
       <Layout>
         <Wrapper>
           <Title>
@@ -94,6 +109,7 @@ export default () => {
         </Wrapper>
       </Layout>
       {loading['survey/SURVEY_CREATE'] && <Spinner />}
+      {visible && <Toast animate={animate}>{message}</Toast>}
     </>
   );
 };

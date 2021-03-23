@@ -7,13 +7,14 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import Message from '../Message';
 import clipboard from '../../utils/clipboard';
 import { getUrl } from '../../utils/url';
-import useToast from '../../hooks/useToast';
 import palette from '../../utils/palette';
 
-export default () => {
+export interface ShareProps {
+  onToast: (text: string) => void;
+}
+export default ({ onToast }: ShareProps) => {
   const [visible, setVisible] = useState(false);
   const onClick = () => setVisible(!visible);
-  const { onToast } = useToast();
 
   const onClipBoard = (mode: string) => {
     if (mode === 'facebook') {

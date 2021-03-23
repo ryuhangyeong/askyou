@@ -7,10 +7,8 @@ import {
 } from 'react-router-dom';
 
 import Spinner from './components/Spinner';
-import Toast from './components/Toast';
 import useAuth from './hooks/useAuth';
 import useLoading from './hooks/useLoading';
-import useToast from './hooks/useToast';
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'));
 const AuthPage = React.lazy(() => import('./pages/AuthPage'));
@@ -19,7 +17,6 @@ const MbtiPage = React.lazy(() => import('./pages/MbtiPage'));
 const App = () => {
   const { user, onGetCurrentUser } = useAuth();
   const { loading } = useLoading();
-  const { visible, message, animate } = useToast();
 
   /* eslint react-hooks/exhaustive-deps: "off" */
   /*
@@ -55,7 +52,6 @@ const App = () => {
         </Router>
       </Suspense>
       {loading['auth/CURRENT_USER'] && <Spinner />}
-      {visible && <Toast animate={animate}>{message}</Toast>}
     </>
   );
 };

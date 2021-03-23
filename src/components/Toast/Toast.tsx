@@ -37,13 +37,13 @@ const Layout = styled.div<ToastProps>`
       transform: translateY(30rem);
     }
     to {
-      transform: scale(1);
+      transform: translateY(0);
     }
   }
 
   @keyframes slide-out--mobile {
     from {
-      transform: scale(1);
+      transform: translateY(0);
     }
     to {
       transform: translateY(30rem);
@@ -69,13 +69,13 @@ const Layout = styled.div<ToastProps>`
         transform: translateX(30rem);
       }
       to {
-        transform: scale(1);
+        transform: translateX(0);
       }
     }
 
     @keyframes slide-out--pc {
       from {
-        transform: scale(1);
+        transform: translateX(0);
       }
       to {
         transform: translateX(30rem);
