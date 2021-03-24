@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { FaShareAlt } from 'react-icons/fa';
 import { FiPaperclip } from 'react-icons/fi';
@@ -8,13 +8,17 @@ import Message from '../Message';
 import clipboard from '../../utils/clipboard';
 import { getUrl } from '../../utils/url';
 import palette from '../../utils/palette';
+import useAnimation from '../../hooks/useAnimation';
 
 export interface ShareProps {
   onToast: (text: string) => void;
 }
 export default ({ onToast }: ShareProps) => {
-  const [visible, setVisible] = useState(false);
-  const onClick = () => setVisible(!visible);
+  const { visible, animate, open, close } = useAnimation();
+  const onClick = () => {
+    if (visible) close();
+    else open();
+  };
 
   const onClipBoard = (mode: string) => {
     if (mode === 'facebook') {
@@ -25,39 +29,43 @@ export default ({ onToast }: ShareProps) => {
       clipboard(getUrl());
       onToast('링크가 복사되었습니다.');
     }
-    setVisible(false);
+    close();
   };
   return (
     <Layout>
-      <Wrapper visible={visible}>
+      <Wrapper>
         <button type="button" className="item" onClick={onClick}>
           <FaShareAlt />
-          {visible && <Message className="message">공유하기</Message>}
+          <Message className="message">공유하기</Message>
         </button>
-        <button
-          type="button"
-          className="item"
-          onClick={() => onClipBoard('facebook')}
-        >
-          <GrFacebook />
-          {visible && <Message className="message">페이스북</Message>}
-        </button>
-        <button
-          type="button"
-          className="item"
-          onClick={() => onClipBoard('kakao')}
-        >
-          <RiKakaoTalkFill />
-          {visible && <Message className="message">카카오</Message>}
-        </button>
-        <button
-          type="button"
-          className="item"
-          onClick={() => onClipBoard('url')}
-        >
-          <FiPaperclip />
-          {visible && <Message className="message">주소 복사</Message>}
-        </button>
+        {visible && (
+          <Inner animate={animate}>
+            <button
+              type="button"
+              className="item"
+              onClick={() => onClipBoard('facebook')}
+            >
+              <GrFacebook />
+              <Message className="message">페이스북</Message>
+            </button>
+            <button
+              type="button"
+              className="item"
+              onClick={() => onClipBoard('kakao')}
+            >
+              <RiKakaoTalkFill />
+              <Message className="message">카카오</Message>
+            </button>
+            <button
+              type="button"
+              className="item"
+              onClick={() => onClipBoard('url')}
+            >
+              <FiPaperclip />
+              <Message className="message">주소 복사</Message>
+            </button>
+          </Inner>
+        )}
       </Wrapper>
     </Layout>
   );
@@ -74,32 +82,11 @@ const Layout = styled.div`
   }
 `;
 
-interface WrapperProps {
-  visible: boolean;
-}
-
-const Wrapper = styled.div<WrapperProps>`
+const Wrapper = styled.div`
   position: relative;
-
-  ${({ visible }) =>
-    visible &&
-    css`
-      .item:nth-child(2) {
-        transform: translateX(6rem);
-      }
-
-      .item:nth-child(3) {
-        transform: translateX(12rem);
-      }
-
-      .item:nth-child(4) {
-        transform: translateX(18rem);
-      }
-    `}
 
   .item {
     position: absolute;
-    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,7 +96,6 @@ const Wrapper = styled.div<WrapperProps>`
     width: 5rem;
     height: 5rem;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
 
     &:active,
     &:focus,
@@ -157,6 +143,100 @@ const Wrapper = styled.div<WrapperProps>`
       font-size: 2rem;
       color: #adb5bd;
       transition: all 0.2s ease-in-out;
+    }
+  }
+`;
+
+export interface IInner {
+  animate: boolean;
+}
+
+const Inner = styled.div<IInner>`
+  position: relative;
+  z-index: 999;
+
+  .item:nth-child(1) {
+    animation: slide-in-1 0.6s 1;
+    animation-fill-mode: forwards;
+  }
+
+  .item:nth-child(2) {
+    animation: slide-in-2 0.6s 1;
+    animation-fill-mode: forwards;
+  }
+
+  .item:nth-child(3) {
+    animation: slide-in-3 0.6s 1;
+    animation-fill-mode: forwards;
+  }
+
+  ${({ animate }) =>
+    animate &&
+    css`
+      .item:nth-child(1) {
+        animation: slide-out-1 0.6s 1;
+      }
+
+      .item:nth-child(2) {
+        animation: slide-out-2 0.6s 1;
+      }
+
+      .item:nth-child(3) {
+        animation: slide-out-3 0.6s 1;
+      }
+    `}
+
+  @keyframes slide-in-1 {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(6rem);
+    }
+  }
+
+  @keyframes slide-in-2 {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(12rem);
+    }
+  }
+
+  @keyframes slide-in-3 {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(18rem);
+    }
+  }
+
+  @keyframes slide-out-1 {
+    from {
+      transform: translateX(6rem);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-out-2 {
+    from {
+      transform: translateX(12rem);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-out-3 {
+    from {
+      transform: translateX(18rem);
+    }
+    to {
+      transform: translateX(0);
     }
   }
 `;
