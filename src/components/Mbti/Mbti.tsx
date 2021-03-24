@@ -31,7 +31,7 @@ export default () => {
 
   const { user } = useAuth();
   const history = useHistory();
-  const { visible, animate, tick } = useAnimation();
+  const { visible, animate, rotate } = useAnimation();
   const { message, onToastOpen } = useToast();
 
   const onSelect = useCallback(
@@ -47,10 +47,10 @@ export default () => {
 
   const onToast = useCallback(
     (text: string) => {
-      tick();
+      rotate();
       onToastOpen(text);
     },
-    [tick, onToastOpen]
+    [rotate, onToastOpen]
   );
 
   useEffect(() => {

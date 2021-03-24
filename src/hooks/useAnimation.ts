@@ -4,7 +4,7 @@ export default () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [animate, setAnimate] = useState<boolean>(false);
 
-  const tick = () => {
+  const rotate = () => {
     if (visible) return;
     setVisible(true);
     setTimeout(() => {
@@ -16,9 +16,25 @@ export default () => {
     }, 2000);
   };
 
+  const open = () => {
+    if (visible) return;
+    setVisible(true);
+    setAnimate(false);
+  };
+
+  const close = () => {
+    if (!visible) return;
+    setAnimate(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 600);
+  };
+
   return {
     visible,
     animate,
-    tick,
+    rotate,
+    open,
+    close,
   };
 };
