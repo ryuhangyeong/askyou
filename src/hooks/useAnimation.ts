@@ -4,7 +4,7 @@ export default () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [animate, setAnimate] = useState<boolean>(false);
 
-  const rotate = () => {
+  const comeback = () => {
     if (visible) return;
     setVisible(true);
     setTimeout(() => {
@@ -33,7 +33,7 @@ export default () => {
   return {
     visible,
     animate,
-    rotate,
+    comeback,
     open,
     close,
   };
