@@ -17,16 +17,16 @@ export default () => {
   };
 
   const open = () => {
-    if (visible) return;
     setVisible(true);
     setAnimate(false);
   };
 
   const close = () => {
-    if (!visible) return;
+    if (visible && animate) return;
     setAnimate(true);
     setTimeout(() => {
       setVisible(false);
+      setAnimate(false);
     }, 600);
   };
 
