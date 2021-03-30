@@ -17,19 +17,18 @@ export default () => {
     chart.fontFamily = 'NotoSansKR';
 
     const series = chart.series.push(new am4pluginsWordCloud.WordCloudSeries());
-    series.text = select.map((data) => data.title).join(' ');
+    series.text = select
+      .map((data) => data.title)
+      .concat(mbti)
+      .join(' ');
     series.maxFontSize = am4core.percent(100);
 
     chartRef.current = chart;
     return () => chart.dispose();
   }, [history, mbti, select]);
 
-  if (!mbti) return null;
   return (
     <Layout>
-      <header>
-        <h1>{mbti}</h1>
-      </header>
       <div id="chart" style={{ width: '100%', height: '100%' }} />
     </Layout>
   );
@@ -39,14 +38,4 @@ const Layout = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-
-  header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    h1 {
-      text-align: center;
-      font-size: 5rem;
-    }
-  }
 `;
