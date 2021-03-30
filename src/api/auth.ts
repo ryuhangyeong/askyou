@@ -1,14 +1,23 @@
 import firebase from 'firebase/app';
 import kakaoLogin from '../functions/kakaoLogin';
 
-export const signUpApi = async (email: string, password: string) => {
+export const signUpApi = async (payload: {
+  email: string;
+  password: string;
+}) => {
+  const { email, password } = payload;
   const data = await firebase
     .auth()
     .createUserWithEmailAndPassword(email, password);
   return data;
 };
 
-export const signInApi = async (email: string, password: string) => {
+export const signInApi = async (payload: {
+  email: string;
+  password: string;
+}) => {
+  const { email, password } = payload;
+
   const data = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password);

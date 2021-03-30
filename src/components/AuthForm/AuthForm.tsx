@@ -78,8 +78,8 @@ export default () => {
 
   const onSubmit = async ({ email, password }: IInputs) => {
     try {
-      if (authType) await signInApi(email, password);
-      else await signUpApi(email, password);
+      if (authType) await signInApi({ email, password });
+      else await signUpApi({ email, password });
       history.push('/');
     } catch (e) {
       setError({ message: e.code });
