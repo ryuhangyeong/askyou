@@ -5,6 +5,7 @@ import { FiPaperclip } from 'react-icons/fi';
 import { GrFacebook } from 'react-icons/gr';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import Message from '../Message';
+import Share from '../Share';
 import clipboard from '../../utils/clipboard';
 import { getUrl } from '../../utils/url';
 import palette from '../../utils/palette';
@@ -16,6 +17,7 @@ export interface ShareListProps {
 
 export default ({ onToast }: ShareListProps) => {
   const { visible, animate, open, close } = useAnimation();
+
   const onClick = () => {
     if (visible) close();
     else open();
@@ -35,36 +37,24 @@ export default ({ onToast }: ShareListProps) => {
   return (
     <Layout>
       <Wrapper>
-        <button type="button" className="item" onClick={onClick}>
+        <Share onClick={onClick}>
           <FaShareAlt />
           <Message className="message">공유하기</Message>
-        </button>
+        </Share>
         {visible && (
           <Inner animate={animate}>
-            <button
-              type="button"
-              className="item"
-              onClick={() => onClipBoard('facebook')}
-            >
+            <Share onClick={() => onClipBoard('facebook')}>
               <GrFacebook />
               <Message className="message">페이스북</Message>
-            </button>
-            <button
-              type="button"
-              className="item"
-              onClick={() => onClipBoard('kakao')}
-            >
+            </Share>
+            <Share onClick={() => onClipBoard('kakao')}>
               <RiKakaoTalkFill />
               <Message className="message">카카오</Message>
-            </button>
-            <button
-              type="button"
-              className="item"
-              onClick={() => onClipBoard('url')}
-            >
+            </Share>
+            <Share onClick={() => onClipBoard('url')}>
               <FiPaperclip />
               <Message className="message">주소 복사</Message>
-            </button>
+            </Share>
           </Inner>
         )}
       </Wrapper>
@@ -88,15 +78,6 @@ const Wrapper = styled.div`
 
   .item {
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #adb5bd;
-    border-radius: 50%;
-    background-color: #fff;
-    width: 5rem;
-    height: 5rem;
-    cursor: pointer;
 
     &:active,
     &:focus,
@@ -130,24 +111,12 @@ const Wrapper = styled.div`
     &:nth-child(1) {
       z-index: 1000;
     }
-
-    &:active,
-    &:hover {
-      border: 1px solid ${palette.gray[9]};
-
-      svg {
-        color: ${palette.gray[9]};
-      }
-    }
-
-    svg {
-      font-size: 2rem;
-      color: #adb5bd;
-      transition: all 0.2s ease-in-out;
-    }
   }
 `;
 
+/*
+ * @todo 리팩토링
+ */
 export interface IInner {
   animate: boolean;
 }
