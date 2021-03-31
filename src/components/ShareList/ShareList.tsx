@@ -34,6 +34,7 @@ export default ({ onToast }: ShareListProps) => {
     }
     close();
   };
+
   return (
     <Layout>
       <Wrapper>
@@ -43,11 +44,11 @@ export default ({ onToast }: ShareListProps) => {
         </Share>
         {visible && (
           <Inner animate={animate}>
-            <Share onClick={() => onClipBoard('facebook')}>
+            <Share disabled onClick={() => onClipBoard('facebook')}>
               <GrFacebook />
               <Message className="message">페이스북</Message>
             </Share>
-            <Share onClick={() => onClipBoard('kakao')}>
+            <Share disabled onClick={() => onClipBoard('kakao')}>
               <RiKakaoTalkFill />
               <Message className="message">카카오</Message>
             </Share>

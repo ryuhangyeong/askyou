@@ -2,11 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import styled from 'styled-components';
+import useToast from '../../hooks/useToast';
 import { getSurveyResult, ISurveyResult } from '../../api/survey';
 import { getFrequencyMbti } from '../../data/survey';
 import Responsive from '../Responsive';
+import ShareList from '../ShareList';
+import Toast from '../Toast';
 
 export default () => {
+  const { visible, animate, message, onToast } = useToast();
   const chartRef = useRef<am4charts.PieChart | null>(null);
 
   useEffect(() => {
@@ -59,9 +63,13 @@ export default () => {
   }, []);
 
   return (
-    <Layout>
-      <div id="chart" style={{ width: '100%' }} />
-    </Layout>
+    <>
+      <ShareList onToast={onToast} />
+      <Layout>
+        <div id="chart" style={{ width: '100%' }} />
+      </Layout>
+      {visible && <Toast animate={animate}>{message}</Toast>}
+    </>
   );
 };
 

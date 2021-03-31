@@ -11,7 +11,6 @@ import useSurvey from '../../hooks/useSurvey';
 import useAuth from '../../hooks/useAuth';
 import useToast from '../../hooks/useToast';
 import useLoading from '../../hooks/useLoading';
-import useAnimation from '../../hooks/useAnimation';
 import { getAnalysisMbti } from '../../data/survey';
 import { createSurvey } from '../../api/survey';
 import createRequest from '../../utils/createRequest';
@@ -28,11 +27,9 @@ export default () => {
   } = useSurvey();
 
   const { loading } = useLoading();
-
   const { user } = useAuth();
+  const { visible, animate, message, onToast } = useToast();
   const history = useHistory();
-  const { visible, animate, comeback } = useAnimation();
-  const { message, onToastOpen } = useToast();
 
   const onSelect = useCallback(
     (data) => {
@@ -43,14 +40,6 @@ export default () => {
       }
     },
     [idx, setIdx, onSurveySelect, list.length]
-  );
-
-  const onToast = useCallback(
-    (text: string) => {
-      comeback();
-      onToastOpen(text);
-    },
-    [comeback, onToastOpen]
   );
 
   useEffect(() => {
