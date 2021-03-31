@@ -10,10 +10,11 @@ import { getUrl } from '../../utils/url';
 import palette from '../../utils/palette';
 import useAnimation from '../../hooks/useAnimation';
 
-export interface ShareProps {
+export interface ShareListProps {
   onToast: (text: string) => void;
 }
-export default ({ onToast }: ShareProps) => {
+
+export default ({ onToast }: ShareListProps) => {
   const { visible, animate, open, close } = useAnimation();
   const onClick = () => {
     if (visible) close();

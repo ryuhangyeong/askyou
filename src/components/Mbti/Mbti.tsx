@@ -5,7 +5,7 @@ import Responsive from '../Responsive';
 import Survey from '../Survey';
 import ProgressBar from '../ProgressBar';
 import Spinner from '../Spinner';
-import Share from '../Share';
+import ShareList from '../ShareList';
 import Toast from '../Toast';
 import useSurvey from '../../hooks/useSurvey';
 import useAuth from '../../hooks/useAuth';
@@ -87,7 +87,7 @@ export default () => {
 
   return (
     <>
-      <Share onToast={onToast} />
+      <ShareList onToast={onToast} />
       <Layout>
         <Wrapper>
           <Title>
