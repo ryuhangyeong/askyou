@@ -8,7 +8,6 @@ import Message from '../Message';
 import Share from '../Share';
 import clipboard from '../../utils/clipboard';
 import { getUrl } from '../../utils/url';
-import palette from '../../utils/palette';
 import useAnimation from '../../hooks/useAnimation';
 
 export interface ShareListProps {
@@ -79,35 +78,6 @@ const Wrapper = styled.div`
 
   .item {
     position: absolute;
-
-    &:active,
-    &:focus,
-    &:hover {
-      .message {
-        display: flex;
-      }
-    }
-
-    .message {
-      display: none;
-      width: 6rem;
-      font-size: 1.5rem;
-      right: auto;
-      bottom: -45px;
-
-      &::after {
-        display: block;
-        content: '';
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-top: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-left: 5px solid transparent;
-        border-bottom: 5px solid ${palette.gray[9]};
-      }
-    }
 
     &:nth-child(1) {
       z-index: 1000;

@@ -33,8 +33,13 @@ const Wrapper = styled.button`
   cursor: pointer;
 
   &:active,
+  &:focus,
   &:hover {
     border: 1px solid ${palette.gray[9]};
+
+    .message {
+      display: flex;
+    }
 
     svg {
       color: ${palette.gray[9]};
@@ -51,6 +56,27 @@ const Wrapper = styled.button`
 
   &:disabled {
     background-color: ${palette.gray[2]};
+  }
+
+  .message {
+    display: none;
+    width: 6rem;
+    font-size: 1.5rem;
+    right: auto;
+    bottom: -45px;
+
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+      border-bottom: 5px solid ${palette.gray[9]};
+    }
   }
 
   svg {
