@@ -9,6 +9,7 @@
 [여기에서 확인](https://github.com/ryuhangyeong/Askyou/projects/1)
 
 ## 기술 스택
+
 - Reactjs
 - React Router
 - React-hook-form
@@ -22,6 +23,7 @@
 - Firebase functions
 
 ## 주요 기능
+
 - 회원가입/로그인(이메일, 비밀번호)
 - OAuth
   - 카카오 로그인
@@ -29,9 +31,57 @@
   - 페이스북 로그인
 - 선택한 단어로 알아보는 나의 MBTI
 - MBTI 결과 페이지
+  - `.jpg`로 결과 페이지 다운로드
 - MBTI 통계 페이지
 
+## 프로젝트 세팅
+
+개인적인 사유로 컴퓨터를 포맷하고 **Askyou** 프로젝트를 설정하다보니 생각보다 이것저것 설정하고 입력해주어야 할 것들이 많아서 정리해본다.
+
+- `git clone`
+- `npm install`
+  **Askyou** 클라이언트 종속성 다운로드
+- `.env`
+  ```
+  REACT_APP_API_KEY=
+  REACT_APP_AUTH_DOMAIN=
+  REACT_APP_PROJECT_ID=
+  REACT_APP_STORAGE_BUCKET=
+  REACT_APP_MESSAGING_SENDER_ID=
+  REACT_APP_APP_ID=
+  REACT_APP_MEASUREMENT_ID=
+
+  REACT_APP_KAKAO_LOGIN=
+  ```
+
+  파이어베이스 및 카카오 로그인 관련 키 정보 입력
+- `npm i -g firebase-tools`
+- `firebase login`
+- `firebase init`
+- `cd functions`
+- `npm install`
+- `.env`
+  ```
+  FIREBASE_ADMIN_PROJECT_ID=
+  FIREBASE_ADMIN_CLIENT_EMAIL=
+  FIREBASE_ADMIN_PRIVATE_KEY=
+  FIREBASE_DATABASE_URL=
+  ```
+  파이어베이스 어드민 관련 키 정보 입력
+
+  추가적으로 주의해야하는 것은 `firebase-functions`는 `blaze` 요금제에서 사용할 수 있다. 실제 배포하는 경우 `blaze` 요금제로 설정되어있는지 살펴보자.
+
+- 로그인 관련하여 `facebook`, `kakao`에서 API 키 설정과 `callback` 설정을 해주어야 한다.
+- 배포
+  - client
+    - `npm run build`
+    - `firebase deploy --only hosting`
+  - function
+    - `npm run build`
+    - `firebase deploy --only functions`
+
 ## Tip
+
 - `firebase function`에서 typescript를 사용하는 경우 build 과정을 거쳐야하기 때문에 firebase 에뮬레이터가  build 결과를 감지를 못한다. 그래서 아래 명령어로 타입스크립트 코드 변화를 감지하도록 도와주자.
 ```
 npx tsc --watch
