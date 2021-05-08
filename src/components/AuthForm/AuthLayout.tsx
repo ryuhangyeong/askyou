@@ -10,17 +10,8 @@ export default ({ children }: AuthLayoutProps) => {
 };
 
 const Wrapper = styled.div`
-  position: absolute;
-  top: 7rem;
-  right: 1rem;
-  bottom: 0;
-  left: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @media (min-width: 768px) {
-    right: 0;
-    left: 0;
-  }
+  height: calc(100vh - 7rem);
 `;
